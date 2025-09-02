@@ -1,0 +1,26 @@
+@use "base_variables";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+    color: base_variables.$black;
+    
+    font-family: "Rubik";
+    font-weight: 500;
+}
+
+body {
+    background: base_variables.$white;
+}
+
+h1 {
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}

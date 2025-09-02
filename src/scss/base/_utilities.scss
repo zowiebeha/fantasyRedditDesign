@@ -1,0 +1,18 @@
+@use "base_variables";
+
+.sr-only {
+    position: absolute;
+    left: -100vw;
+}
+
+.text-orange {
+    color: base_variables.$orange;
+}
+
+.pos-relative {
+    position: relative;
+}
+
+.h-100 {
+    height: 100%;
+}

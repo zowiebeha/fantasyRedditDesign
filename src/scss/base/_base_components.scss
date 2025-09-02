@@ -1,0 +1,149 @@
+@use "base_variables";
+
+.nav-list {
+    padding: 1.25rem 4rem;
+    position: relative;
+
+    align-items: center;
+
+    /* fake borders so we can give them different linear gradients */
+    &::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0; // I guess by default, absolute elements account for relative parent's padding
+
+        height: 2px;
+        width: 100%;
+
+        background: linear-gradient(#E9EAEC 0%, rgb(189 192 198 / 64%) 8%, rgb(189 192 198 / 64%) 92%, #E9EAEC 100%);
+    }
+
+    &::after {
+        content: "";
+
+        position: absolute;
+        bottom: 0;
+        left: 0; // I guess by default, absolute elements account for relative parent's padding
+        // todo: read into default left value.
+
+        height: 2px;
+        width: 100%; // I guess the default width: auto; does not provide width to psuedo elements.
+        // todo: read into width: auto; for psuedo elements
+
+        background: linear-gradient(90deg, rgb(156 160 170 / 0.2) 0%, rgb(156 160 170 / 0.2) 12%, rgb(222 135 104 / 0.1) 13.82%, rgb(222 135 104 / 0.1) 22.2%, rgb(156 160 170 / 0.2) 24%, rgb(156 160 170 / 0.2) 31%, rgb(222 135 104 / 0.1) 33.14%, rgb(222 135 104 / 0.1) 66.12%, rgb(156 160 170 / 0.2) 68%, rgb(156 160 170 / 0.2) 71.33%, rgb(222 135 104 / 0.1) 73.11%, rgb(222 135 104 / 0.1) 86.84%, rgb(156 160 170 / 0.2) 89%);
+    }
+
+    display: flex;
+    width: 100%;
+
+    .nav-item {
+        &::marker {
+            font-size: 0px;
+        }
+    }
+
+    #search-form {
+        // this use of vw will come back to bite us if a vertical scrollbar appears.
+        // it will alter the layout from what the design displays, since a horizontal scrollbar may appear in some cases? think more about this...
+        margin-left: calc(100vw * 0.1295); // Figma #. 12.95% of the viewport width
+
+        .icon-field-wrapper {
+            position: relative;
+            height: 3rem;
+
+            .field-icon {
+                position: absolute;
+                // 27px by 24px
+                width: 1.3rem;
+                height: 1.25rem;
+                left: 0.5rem;
+                top: 50%; // move top face by 50% from the top of the pos-relative div
+                transform: translate(1rem, -50%); // translate 50% of width up such that the icon is positioned relative to the center of itself by 50% from the top of the pos-relative div
+                pointer-events: none;
+
+                path {
+                    fill: base_variables.$oranger;
+                }
+            }
+
+
+            #search-field {
+                height: 100%;
+                width: 28rem;
+                border-radius: 1rem;
+                // user text
+                color: base_variables.$oranger;
+
+                border: 1px solid rgba(163, 44, 1, 0.24);
+                background: linear-gradient(180deg, rgb(239 217 210 / 0.72) 0%, rgb(234 205 195 / 0.72) 100%);
+                box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24);
+
+                font-size: 1.25rem;
+                padding-left: 3.6875rem; // hold space for the icon
+
+                &::placeholder {
+                    color: base_variables.$oranger;
+                }
+
+                transition: .4s outline;
+                outline: 1px solid transparent;
+                
+                &:focus {
+                    outline: 1px solid rbg(from base_variables.$oranger r g b / 99%);
+                }
+            }
+        }
+    }
+
+    .account-info {
+        margin-left: auto;
+
+        display: grid;
+        grid: "username btn--options" auto "credits btn--options" auto / auto auto;
+
+        column-gap: 1rem;
+
+        /* use percentage margins? or use grid on the nav-list instead of flex w/ percentage inline-length columns ✅ */
+        .username {
+            grid-area: username;
+            align-self: end;
+        }
+
+        .credits {
+            grid-area: credits;
+        }
+
+        // relationship between width, aspect-ratio, and child svg with 100% w/h.
+        // why does width sometimes not respect aspect ratio? maybe due to how svg scales weirdly.
+        .btn--options {
+            width: 3rem;
+            aspect-ratio: 1 / 1;
+
+            place-self: center;
+
+            grid-area: btn--options;
+            background: base_variables.$black;
+            border-radius: base_variables.$border-radius-med;
+            padding: 0.875rem;
+
+            /* Hide browser default tooltip when an svg element with <title> is hovered over */
+            /* Warning: disables event emission for the svg */
+            svg {
+                pointer-events: none;
+                width: 100%;
+                height: 100%;
+                fill: base_variables.$white;
+                /* remove whitespace underneath replaced element */
+                vertical-align: bottom;
+            }
+            
+            transition: .2s background;
+            &:hover {
+                background: rgb(from base_variables.$black r g b / 96%);
+            }
+
+        }
+    }
+}

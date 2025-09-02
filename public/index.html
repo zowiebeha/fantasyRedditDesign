@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/base/base.css">
+    <link rel="stylesheet" href="./css/index/index.css">
+    <script defer src="./main.js"></script>
+
+    <title></title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <h1>
+                        <span>Fantasy</span><span class="text-orange">Reddit</span>
+                    </h1>
+                </li>
+                
+                <li class="nav-item">                    
+                    <form id="search-form" action="#" method="GET">
+                        <div class="icon-field-wrapper">
+                            <svg class="field-icon">
+                                <title>A magnifying glass icon</title>
+                                <use href="./assets/svg/magnification-list-icon.svg"></use>
+                            </svg>
+                            <input id="search-field" type="text" placeholder="Search for threads" name="search-query">
+                        </div>
+                    </form>
+                </li>
+                
+                <li class="nav-item account-info">
+                    <p class="username text-orange">Yusuken64</p>
+                    <p class="credits">3000 credits</p>
+
+                    <button class="btn btn--options">
+                        <p class="sr-only">Account Settings</p>
+
+                        <!-- <embed type="image/svg+xml" src="./assets/svg/cog-icon.svg"> -->
+                        <svg>
+                            <title>A cog icon</title>
+                            <use href="./assets/svg/cog-icon.svg"></use>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <aside>
+        <nav>
+            <p>Navigation:</p>
+            <ul>
+                <li>
+                    <svg class="icon">
+                        <title></title>
+                        <use></use>
+                    </svg>
+                    
+                    <p>Top</p>
+                </li>
+            </ul>
+        </nav>
+        
+        <p class="text-orange">Recently Viewed:</p>
+        <!-- is this the best usage of BEM? css in js is probably better? idk... -->
+        <ul class="recent-thread-list">
+            <li class="recent-thread-item">
+                <img class="thread__icon" href="" alt="">
+                <p class="thread__subreddit">r/RedesignHelp</p>
+                <p class="thread__title">How to design this t
+            </li>
+        </ul>
+    </aside>
+    
+    <main>
+
+    </main>
+</body>
+
+</html>
