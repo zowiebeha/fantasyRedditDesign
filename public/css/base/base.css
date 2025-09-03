@@ -42,10 +42,10 @@ button {
 .nav-list {
   padding: 1.25rem 4rem;
   position: relative;
-  align-items: center;
-  /* fake borders so we can give them different linear gradients */
   display: flex;
   width: 100%;
+  align-items: center;
+  /* fake borders so we can give them different linear gradients */
 }
 .nav-list::before {
   content: "";

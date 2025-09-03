@@ -4,6 +4,13 @@
     padding: 1.25rem 4rem;
     position: relative;
 
+    // grid will allow us to use percentages of the viewport width instead of percentages of the vw unit.
+    // percentages will mitigate the fixed margin issue.
+    // it will also prevent a horizontal scrollbar from appearing?????
+    // more so about fixed element size overflow than track size but ....   
+    // good thoughts so far!
+    display: flex;
+    width: 100%;
     align-items: center;
 
     /* fake borders so we can give them different linear gradients */
@@ -35,9 +42,6 @@
         background: linear-gradient(90deg, rgb(156 160 170 / 0.2) 0%, rgb(156 160 170 / 0.2) 12%, rgb(222 135 104 / 0.1) 13.82%, rgb(222 135 104 / 0.1) 22.2%, rgb(156 160 170 / 0.2) 24%, rgb(156 160 170 / 0.2) 31%, rgb(222 135 104 / 0.1) 33.14%, rgb(222 135 104 / 0.1) 66.12%, rgb(156 160 170 / 0.2) 68%, rgb(156 160 170 / 0.2) 71.33%, rgb(222 135 104 / 0.1) 73.11%, rgb(222 135 104 / 0.1) 86.84%, rgb(156 160 170 / 0.2) 89%);
     }
 
-    display: flex;
-    width: 100%;
-
     .nav-item {
         &::marker {
             font-size: 0px;
@@ -45,10 +49,14 @@
     }
 
     #search-form {
-        // this use of vw will come back to bite us if a vertical scrollbar appears.
-        // it will alter the layout from what the design displays, since a horizontal scrollbar may appear in some cases? think more about this...
+        // this use of vw will come back to bite us if a vertical scrollbar appears,
+        // .. and if the viewport is too small to support the margin + other elements.
+        // it will alter the layout from what the design displays, since a horizontal scrollbar may appear.
+        // the margin isn't based on a percentage of the nav-list, it's based on a percentage of the viewport.
+        // as the viewport shrinks, the margin will increase.
         margin-left: calc(100vw * 0.1295); // Figma #. 12.95% of the viewport width
-
+        // margin-left: calc(100vw * 0.1295);
+        
         .icon-field-wrapper {
             position: relative;
             height: 3rem;
