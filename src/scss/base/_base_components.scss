@@ -176,6 +176,7 @@
 // Sidebar
 
 .sidebar {
+    width: min-content;
     position: relative;
     padding: 4rem;
     
@@ -197,6 +198,8 @@
         margin-bottom: 4rem;
         
         .navlist-item {
+            width: fit-content;
+            
             &::marker {
                 font-size: 0;
             }
@@ -219,4 +222,45 @@
             margin-top: 2rem;
         }
     }
+    
+    .recent-thread-list {
+        margin-top: .75rem;
+        /* Not sure why body's max-content column track inline length squishes this. Explicitly give max-content width to the recently viewed subreddit: */
+        width: max-content;
+        
+        .list__item {
+            &::marker {
+                font-size: 0px;
+            }
+        }
+        .item__link {
+            display: grid;
+            grid: "logo subreddit" 1fr
+                  "logo thread-title" 1fr
+                  / auto 1fr;
+            column-gap: .5rem;
+            
+            .thread__icon {
+                width: 2rem;
+                aspect-ratio: 1/1;
+                grid-area: logo;
+                align-self: center;
+            }
+            .thread__subreddit {
+                grid-area: subreddit;
+            }
+            .thread__title {
+                grid-area: thread-title;
+            }
+        }
+    }
+}
+
+// Cards
+
+.thread-card {
+    padding: .75rem;
+    border-radius: 1rem;
+    border: 1px solid rgb(19 20 22 / 32%);
+    background: #E9EAEC;
 }

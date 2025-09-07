@@ -10,8 +10,10 @@
 
 body {
   background: hsl(220, 7%, 92%);
+  height: 100vh;
+  outline: 2px solid red;
   display: grid;
-  grid: "header header" auto "sidebar main" auto/auto auto;
+  grid: "header header" auto "sidebar main" 1fr/max-content 1fr;
 }
 body > header {
   grid-area: header;
@@ -24,8 +26,15 @@ body > main {
 }
 
 main {
-  padding-top: 4rem;
-  padding-left: 3rem;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scrollable-container {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-color: hsl(278, 18%, 9%) transparent;
+  padding: 4rem 3rem;
 }
 
 h1 {
@@ -167,6 +176,7 @@ button {
 }
 
 .sidebar {
+  width: min-content;
   position: relative;
   padding: 4rem;
 }
@@ -183,6 +193,7 @@ button {
   margin-bottom: 4rem;
 }
 .sidebar .sidebar-navlist .navlist-item {
+  width: fit-content;
   /* icons should each be specific in their dimensions according to the design */
 }
 .sidebar .sidebar-navlist .navlist-item::marker {
@@ -200,6 +211,38 @@ button {
 }
 .sidebar .sidebar-navlist .navlist-item:nth-child(n+2) {
   margin-top: 2rem;
+}
+.sidebar .recent-thread-list {
+  margin-top: 0.75rem;
+  /* Not sure why body's max-content column track inline length squishes this. Explicitly give max-content width to the recently viewed subreddit: */
+  width: max-content;
+}
+.sidebar .recent-thread-list .list__item::marker {
+  font-size: 0px;
+}
+.sidebar .recent-thread-list .item__link {
+  display: grid;
+  grid: "logo subreddit" 1fr "logo thread-title" 1fr/auto 1fr;
+  column-gap: 0.5rem;
+}
+.sidebar .recent-thread-list .item__link .thread__icon {
+  width: 2rem;
+  aspect-ratio: 1/1;
+  grid-area: logo;
+  align-self: center;
+}
+.sidebar .recent-thread-list .item__link .thread__subreddit {
+  grid-area: subreddit;
+}
+.sidebar .recent-thread-list .item__link .thread__title {
+  grid-area: thread-title;
+}
+
+.thread-card {
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(19, 20, 22, 0.32);
+  background: #E9EAEC;
 }
 
 /*# sourceMappingURL=base.css.map */
