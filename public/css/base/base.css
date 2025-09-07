@@ -10,11 +10,31 @@
 
 body {
   background: hsl(220, 7%, 92%);
+  display: grid;
+  grid: "header header" auto "sidebar main" auto/auto auto;
+}
+body > header {
+  grid-area: header;
+}
+body > aside {
+  grid-area: sidebar;
+}
+body > main {
+  grid-area: main;
+}
+
+main {
+  padding-top: 4rem;
+  padding-left: 3rem;
 }
 
 h1 {
   font-size: 2.25rem;
   font-weight: 500;
+}
+
+a {
+  text-decoration: none;
 }
 
 button {
@@ -42,9 +62,11 @@ button {
 .nav-list {
   padding: 1.25rem 4rem;
   position: relative;
-  display: flex;
-  width: 100%;
+  --search-field-width: 28rem;
+  display: grid;
+  grid: 1fr/max-content calc(var(--search-field-width) + 12.95%) auto;
   align-items: center;
+  justify-items: right;
   /* fake borders so we can give them different linear gradients */
 }
 .nav-list::before {
@@ -68,9 +90,6 @@ button {
 .nav-list .nav-item::marker {
   font-size: 0px;
 }
-.nav-list #search-form {
-  margin-left: 12.95vw;
-}
 .nav-list #search-form .icon-field-wrapper {
   position: relative;
   height: 3rem;
@@ -89,7 +108,7 @@ button {
 }
 .nav-list #search-form .icon-field-wrapper #search-field {
   height: 100%;
-  width: 28rem;
+  width: var(--search-field-width);
   border-radius: 1rem;
   color: hsl(16, 99%, 51%);
   border: 1px solid rgba(163, 44, 1, 0.24);
@@ -140,8 +159,47 @@ button {
   /* remove whitespace underneath replaced element */
   vertical-align: bottom;
 }
+.nav-list .account-info .btn--options svg path {
+  fill: hsl(220, 7%, 92%);
+}
 .nav-list .account-info .btn--options:hover {
   background: rgb(from hsl(278, 18%, 9%) r g b/96%);
+}
+
+.sidebar {
+  position: relative;
+  padding: 4rem;
+}
+.sidebar::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(156, 160, 170, 0.064) 0%, rgba(156, 160, 170, 0.128) 16%, rgba(156, 160, 170, 0.2) 32%, rgba(222, 135, 104, 0.128) 48%, rgba(222, 135, 104, 0.128) 64%, rgba(156, 160, 170, 0.064) 80%);
+}
+.sidebar .sidebar-navlist {
+  margin-bottom: 4rem;
+}
+.sidebar .sidebar-navlist .navlist-item {
+  /* icons should each be specific in their dimensions according to the design */
+}
+.sidebar .sidebar-navlist .navlist-item::marker {
+  font-size: 0;
+}
+.sidebar .sidebar-navlist .navlist-item svg {
+  width: 2rem;
+  height: 2rem;
+  outline: 1px solid red;
+}
+.sidebar .sidebar-navlist .navlist-item .item-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.sidebar .sidebar-navlist .navlist-item:nth-child(n+2) {
+  margin-top: 2rem;
 }
 
 /*# sourceMappingURL=base.css.map */

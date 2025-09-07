@@ -13,11 +13,38 @@
 
 body {
     background: base_variables.$white;
+    
+    display: grid;
+    grid:
+        "header header" auto
+        "sidebar main" auto
+        / auto auto;
+        
+    > header {
+        grid-area: header;
+    }
+    > aside {
+        grid-area: sidebar;
+    }
+    > main {
+        grid-area: main;
+    }
+}
+
+main {
+    padding-top: 4rem;
+    padding-left: 3rem;
+    
+    
 }
 
 h1 {
     font-size: 2.25rem;
     font-weight: 500;
+}
+
+a {
+    text-decoration: none;
 }
 
 button {

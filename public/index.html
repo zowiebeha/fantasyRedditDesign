@@ -30,7 +30,7 @@
                         <div class="icon-field-wrapper">
                             <svg class="field-icon">
                                 <title>A magnifying glass icon</title>
-                                <use href="./assets/svg/magnification-list-icon.svg"></use>
+                                <use href="./assets/svg/magnification-list-icon.svg#magnification-list-icon"></use>
                             </svg>
                             <input id="search-field" type="text" placeholder="Search for threads" name="search-query">
                         </div>
@@ -48,10 +48,10 @@
                     <button class="btn btn--options">
                         <p class="sr-only">Account Settings</p>
 
-                        <!-- <embed type="image/svg+xml" src="./assets/svg/cog-icon.svg"> -->
+                        <!-- Note: Firefox requires an ID fragement. -->
                         <svg>
                             <title>A cog icon</title>
-                            <use href="./assets/svg/cog-icon.svg"></use>
+                            <use href="./assets/svg/cog-icon.svg#cog-icon"></use>
                         </svg>
                     </button>
                 </li>
@@ -59,22 +59,54 @@
         </nav>
     </header>
     
-    <aside>
+    <aside class="sidebar">
         <nav>
-            <p>Navigation:</p>
-            <ul>
-                <li>
-                    <svg class="icon">
-                        <title></title>
-                        <use></use>
-                    </svg>
-                    
-                    <p>Top</p>
+            <h2 class="sr-only">Navigation:</h2>
+            <ul class="sidebar-navlist">
+                <li class="navlist-item">
+                    <a class="item-link" href="#">
+                        <svg class="icon">
+                            <title>Ribbon medal award icon</title>
+                            <use href="./assets/svg/ribbon-icon.svg#ribbon-icon"></use>
+                        </svg>
+                        
+                        <p>Top</p>
+                    </a>
+                </li>
+                <li class="navlist-item">
+                    <a class="item-link" href="#">
+                        <svg class="icon">
+                            <title>Fire flame icon</title>
+                            <use href="./assets/svg/flame-icon.svg#flame-icon"></use>
+                        </svg>
+                        
+                        <p>Hot</p>
+                    </a>
+                </li>
+                <li class="navlist-item">
+                    <a class="item-link" href="#">
+                        <svg class="icon">
+                            <title>Opposing diagonal arrows icon</title>
+                            <use href="./assets/svg/trade-icon.svg#trade-icon"></use>
+                        </svg>
+                        
+                        <p>Trade</p>
+                    </a>
+                </li>
+                <li class="navlist-item">
+                    <a class="item-link" href="#">
+                        <svg class="icon">
+                            <title>Folder icon</title>
+                            <use href="./assets/svg/folder-icon.svg#folder-icon"></use>
+                        </svg>
+                        
+                        <p>Portfolio</p>
+                    </a>
                 </li>
             </ul>
         </nav>
         
-        <p class="text-orange">Recently Viewed:</p>
+        <h3 class="text-orange">Recently Viewed:</h3>
         <!-- is this the best usage of BEM? css in js is probably better? idk... -->
         <ul class="recent-thread-list">
             <li class="recent-thread-item">

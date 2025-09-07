@@ -1,5 +1,7 @@
 @use "base_variables";
 
+// Navbar
+
 .nav-list {
     padding: 1.25rem 4rem;
     position: relative;
@@ -9,9 +11,28 @@
     // it will also prevent a horizontal scrollbar from appearing?????
     // more so about fixed element size overflow than track size but ....   
     // good thoughts so far!
-    display: flex;
-    width: 100%;
+    
+    // the use of vw for element margin in with a flex layout
+    // ... will come back to bite us if a vertical scrollbar appears,
+    // .. and if the viewport is too small to support the margin + other elements.
+    // it will alter the layout from what the design displays, since a horizontal scrollbar may appear.
+    // the margin isn't based on a percentage of the nav-list, it's based on a percentage of the viewport.
+    // as the viewport shrinks, the margin will increase.
+    // We can't use margin percentages of the navbar to take advantage of the inheritance heirarchy,
+    //  ... as a percentage width here will calculate based on the <li> parent.
+    // Thus, grid is the best option here. We can account for the field width + its percentage gap. Win win.
+    // Plus, flexbox is a bit viral given its single directionality.
+    
+    --search-field-width: 28rem;
+    
+    display: grid;
+    grid: 1fr
+          /
+          max-content
+          calc(var(--search-field-width) + 12.95%)
+          auto; // 12.95% of the nav-bar
     align-items: center;
+    justify-items: right;
 
     /* fake borders so we can give them different linear gradients */
     &::before {
@@ -49,14 +70,6 @@
     }
 
     #search-form {
-        // this use of vw will come back to bite us if a vertical scrollbar appears,
-        // .. and if the viewport is too small to support the margin + other elements.
-        // it will alter the layout from what the design displays, since a horizontal scrollbar may appear.
-        // the margin isn't based on a percentage of the nav-list, it's based on a percentage of the viewport.
-        // as the viewport shrinks, the margin will increase.
-        margin-left: calc(100vw * 0.1295); // Figma #. 12.95% of the viewport width
-        // margin-left: calc(100vw * 0.1295);
-        
         .icon-field-wrapper {
             position: relative;
             height: 3rem;
@@ -79,7 +92,7 @@
 
             #search-field {
                 height: 100%;
-                width: 28rem;
+                width: var(--search-field-width);
                 border-radius: 1rem;
                 // user text
                 color: base_variables.$oranger;
@@ -145,6 +158,10 @@
                 fill: base_variables.$white;
                 /* remove whitespace underneath replaced element */
                 vertical-align: bottom;
+                
+                path {
+                    fill: base_variables.$white;
+                }
             }
             
             transition: .2s background;
@@ -152,6 +169,54 @@
                 background: rgb(from base_variables.$black r g b / 96%);
             }
 
+        }
+    }
+}
+
+// Sidebar
+
+.sidebar {
+    position: relative;
+    padding: 4rem;
+    
+    // right border
+    &::after {
+        content: "";
+        
+        position: absolute;
+        right: 0;
+        top: 0;
+        
+        height: 100%;
+        width: 2px;
+        
+        background: linear-gradient(180deg, rgba(156, 160, 170, 0.064) 0%, rgba(156, 160, 170, 0.128) 16%, rgba(156, 160, 170, 0.2) 32%, rgba(222, 135, 104, 0.128) 48%, rgba(222, 135, 104, 0.128) 64%, rgba(156, 160, 170, 0.064) 80%);
+    }
+    
+    .sidebar-navlist {
+        margin-bottom: 4rem;
+        
+        .navlist-item {
+            &::marker {
+                font-size: 0;
+            }
+            
+            /* icons should each be specific in their dimensions according to the design */
+            svg {
+                width: 2rem;
+                height: 2rem;
+                outline: 1px solid red;
+            }
+            
+            .item-link {
+                display: flex;
+                align-items: center; // don't stretch and cause poor vertical alignment for text with a smaller block length than the largest element in the line (the icon)
+                gap: 0.625rem;
+            }
+        }
+        
+        .navlist-item:nth-child(n+2) {
+            margin-top: 2rem;
         }
     }
 }
