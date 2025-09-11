@@ -412,29 +412,50 @@
     .btn--share {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        column-gap: 1.5rem;
         padding: .25rem .5rem .25rem 1rem;
+        width: 100%;
         border-radius: .75rem;
         background: #E0E0E0;
         border: 1px solid rgb(14 17 27 / 16%);
         grid-area: btn-share;
+        
+        transition: .2s scale ease-out;
+        &:hover {
+            scale: 1.05;
+        }
     }
     
     .btn--buy {
-        border-radius: 1rem;
-        padding: .5rem 2.5rem;
-        background: #F44200;
-        color: #ECEDEE;
-        
         grid-area: btn-buy;
-    }
-    .btn--sell {
+
+        color: #ECEDEE;
+        background: base_variables.$orange;
+        
         border-radius: 1rem;
         padding: .5rem 2.5rem;
-        background: #C9260C;
-        color: #ECEDEE;
         
+        transition: .2s background-color;
+        &:hover {
+            background: hsl(from base_variables.$orange h s calc(l - 4));
+        }
+    }
+    
+    .btn--sell {
         grid-area: btn-sell;
+        
+        --bg-color: hsl(8, 89%, 42%);
+        
+        color: #ECEDEE;
+        background: var(--bg-color);
+        
+        border-radius: 1rem;
+        padding: .5rem 2.5rem;
+        
+        transition: .2s background-color;
+        &:hover {
+            background: hsl(from var(--bg-color) h s calc(l - 4));
+        }
     }
 }
 

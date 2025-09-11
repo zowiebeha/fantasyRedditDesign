@@ -382,26 +382,40 @@ button {
 .card--thread-options .btn--share {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  column-gap: 1.5rem;
   padding: 0.25rem 0.5rem 0.25rem 1rem;
+  width: 100%;
   border-radius: 0.75rem;
   background: #E0E0E0;
   border: 1px solid rgba(14, 17, 27, 0.16);
   grid-area: btn-share;
+  transition: 0.2s scale ease-out;
+}
+.card--thread-options .btn--share:hover {
+  scale: 1.05;
 }
 .card--thread-options .btn--buy {
+  grid-area: btn-buy;
+  color: #ECEDEE;
+  background: hsl(16, 99%, 46%);
   border-radius: 1rem;
   padding: 0.5rem 2.5rem;
-  background: #F44200;
-  color: #ECEDEE;
-  grid-area: btn-buy;
+  transition: 0.2s background-color;
+}
+.card--thread-options .btn--buy:hover {
+  background: hsl(from hsl(16, 99%, 46%) h s calc(l - 4));
 }
 .card--thread-options .btn--sell {
+  grid-area: btn-sell;
+  --bg-color: hsl(8, 89%, 42%);
+  color: #ECEDEE;
+  background: var(--bg-color);
   border-radius: 1rem;
   padding: 0.5rem 2.5rem;
-  background: #C9260C;
-  color: #ECEDEE;
-  grid-area: btn-sell;
+  transition: 0.2s background-color;
+}
+.card--thread-options .btn--sell:hover {
+  background: hsl(from var(--bg-color) h s calc(l - 4));
 }
 
 .underline-hover-no-svg > *:not(svg) {
