@@ -138,14 +138,14 @@ button {
   font-size: 1.25rem;
   padding-left: 3.6875rem;
   transition: 0.2s box-shadow, 0.4s border-color;
-  box-shadow: 0 0 0 0 transparent;
 }
 .nav-list #search-form .icon-field-wrapper #search-field::placeholder {
   color: hsl(16, 99%, 51%);
 }
 .nav-list #search-form .icon-field-wrapper #search-field:focus {
+  border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
   outline: none;
-  box-shadow: 0 0 0 1px hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
+  box-shadow: inset 0px 4px 4px rgba(240, 67, 5, 0.24), 0 0 0 2px rgba(218, 151, 135, 0.24);
 }
 .nav-list #search-form .icon-field-wrapper #search-field:hover {
   border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
@@ -174,7 +174,9 @@ button {
   padding: 0.875rem;
   /* Hide browser default tooltip when an svg element with <title> is hovered over */
   /* Warning: disables event emission for the svg */
-  transition: 0.2s background;
+  transition: 0.2s background, 0.4s outline;
+  outline: 2px solid transparent;
+  outline-offset: -4px;
 }
 .nav-list .account-info .btn--options svg {
   pointer-events: none;
@@ -188,7 +190,8 @@ button {
   fill: hsl(220, 7%, 92%);
 }
 .nav-list .account-info .btn--options:hover {
-  background: rgb(from hsl(278, 18%, 9%) r g b/96%);
+  background: rgb(from hsl(278, 18%, 9%) r g b/98%);
+  outline: 2px solid hsl(220, 7%, 92%);
 }
 
 .sidebar {

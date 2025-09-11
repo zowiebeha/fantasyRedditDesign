@@ -104,11 +104,12 @@
                 }
 
                 transition: .2s box-shadow, .4s border-color;
-                box-shadow: 0 0 0 0 transparent;
 
                 &:focus {
-                    outline: none;
-                    box-shadow: 0 0 0 1px hsl(from base_variables.$orange h s calc(l + 32));
+                    border-color: hsl(from base_variables.$orange h s calc(l + 32));
+                    outline: none; // override browser default
+                    box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24),
+                                0 0 0 2px rgba(218, 151, 135, 0.24);
                 }
                 
                 &:hover {
@@ -164,10 +165,13 @@
                 }
             }
 
-            transition: .2s background;
-
+            transition: .2s background, .4s outline;
+            outline: 2px solid transparent;
+            outline-offset: -4px;
+            
             &:hover {
-                background: rgb(from base_variables.$black r g b / 96%);
+                background: rgb(from base_variables.$black r g b / 98%);
+                outline: 2px solid base_variables.$white;
             }
 
         }
