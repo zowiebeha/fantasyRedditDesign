@@ -15,7 +15,6 @@ body {
   color: hsl(278, 18%, 9%);
   background: hsl(220, 7%, 92%);
   height: 100vh;
-  outline: 2px solid red;
   display: grid;
   grid: "header header" auto "sidebar main" 1fr/max-content 1fr;
 }
@@ -56,7 +55,7 @@ button {
 }
 
 /* icons should each be specific in their dimensions according to the design */
-*:not(svg) > svg {
+*:not(svg) > svg.icon {
   width: 2rem;
   height: 2rem;
   width: attr(data-width px);
@@ -138,14 +137,18 @@ button {
   box-shadow: inset 0px 4px 4px rgba(240, 67, 5, 0.24);
   font-size: 1.25rem;
   padding-left: 3.6875rem;
-  transition: 0.4s outline;
-  outline: 1px solid transparent;
+  transition: 0.2s box-shadow, 0.4s border-color;
+  box-shadow: 0 0 0 0 transparent;
 }
 .nav-list #search-form .icon-field-wrapper #search-field::placeholder {
   color: hsl(16, 99%, 51%);
 }
 .nav-list #search-form .icon-field-wrapper #search-field:focus {
-  outline: 1px solid rbg(from hsl(16, 99%, 51%) r g b/99%);
+  outline: none;
+  box-shadow: 0 0 0 1px hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
+}
+.nav-list #search-form .icon-field-wrapper #search-field:hover {
+  border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
 }
 .nav-list .account-info {
   margin-left: auto;
@@ -234,6 +237,13 @@ button {
   grid: "logo subreddit" auto "logo thread-title" auto/auto auto;
   column-gap: 0.5rem;
   row-gap: 0.25rem;
+  outline: 1px solid transparent;
+  outline-offset: 0.5rem;
+  transition: 0.2s outline-color;
+  border-radius: 0.5rem;
+}
+.sidebar .recent-thread-list .item__link:hover {
+  outline: 1px solid hsl(from hsl(220, 7%, 92%) h s calc(l - 32));
 }
 .sidebar .recent-thread-list .item__link .thread__icon {
   width: 2rem;
@@ -389,6 +399,48 @@ button {
   background: #C9260C;
   color: #ECEDEE;
   grid-area: btn-sell;
+}
+
+.underline-hover-no-svg > *:not(svg) {
+  position: relative;
+}
+.underline-hover-no-svg > *:not(svg)::after {
+  z-index: -1;
+  position: absolute;
+  bottom: 0.1em;
+  border-radius: 0.5rem;
+  left: 0;
+  content: "";
+  height: 2px;
+  background: hsl(278, 18%, 9%);
+  width: 0;
+  transition: 0.2s width ease-out, 0.2s height ease-out;
+}
+.underline-hover-no-svg:hover > *:not(svg)::after {
+  width: 100%;
+}
+
+.underline-hover {
+  position: relative;
+}
+.underline-hover::after {
+  z-index: -1;
+  position: absolute;
+  bottom: 0.1em;
+  border-radius: 0.5rem;
+  left: 0;
+  content: "";
+  height: 2px;
+  background: hsl(278, 18%, 9%);
+  width: 0;
+  transition: 0.2s width ease-out, 0.2s height ease-out;
+}
+.underline-hover:hover::after {
+  width: 100%;
+}
+
+.underline-hover--orange::after {
+  background: hsl(16, 99%, 46%);
 }
 
 /*# sourceMappingURL=base.css.map */

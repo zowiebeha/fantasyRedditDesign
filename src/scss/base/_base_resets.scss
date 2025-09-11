@@ -20,7 +20,6 @@ body {
     
     background: base_variables.$white;
     height: 100vh;
-    outline: 2px solid red;
     display: grid;
     grid:
         "header header" auto
@@ -67,7 +66,7 @@ button {
 
 /* icons should each be specific in their dimensions according to the design */
 // don't match nested svgs included with <use>
-*:not(svg) > svg {
+*:not(svg) > svg.icon {
     // why does *-content not work?
     // firefox fallbacks
     width: 2rem;
@@ -75,6 +74,7 @@ button {
     
     width: attr(data-width px);
     height: attr(data-height px);
+    
     outline: 1px solid red;
     pointer-events: none; // don't display <title>s on hover
 }

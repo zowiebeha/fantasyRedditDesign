@@ -95,7 +95,7 @@
                 border: 1px solid rgba(163, 44, 1, 0.24);
                 background: linear-gradient(180deg, rgb(239 217 210 / 0.72) 0%, rgb(234 205 195 / 0.72) 100%);
                 box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24);
-
+                
                 font-size: 1.25rem;
                 padding-left: 3.6875rem; // hold space for the icon
 
@@ -103,11 +103,16 @@
                     color: base_variables.$oranger;
                 }
 
-                transition: .4s outline;
-                outline: 1px solid transparent;
+                transition: .2s box-shadow, .4s border-color;
+                box-shadow: 0 0 0 0 transparent;
 
                 &:focus {
-                    outline: 1px solid rbg(from base_variables.$oranger r g b / 99%);
+                    outline: none;
+                    box-shadow: 0 0 0 1px hsl(from base_variables.$orange h s calc(l + 32));
+                }
+                
+                &:hover {
+                    border-color: hsl(from base_variables.$orange h s calc(l + 32));
                 }
             }
         }
@@ -232,6 +237,15 @@
                   / auto auto;
             column-gap: .5rem;
             row-gap: .25rem;
+            
+            outline: 1px solid transparent;
+            outline-offset: .5rem;
+            transition: .2s outline-color;
+            border-radius: .5rem;
+            
+            &:hover {
+                outline: 1px solid hsl(from base_variables.$white h s calc(l - 32));
+            }
 
             .thread__icon {
                 width: 2rem;
@@ -417,5 +431,57 @@
         color: #ECEDEE;
         
         grid-area: btn-sell;
+    }
+}
+
+.underline-hover-no-svg {
+    > *:not(svg) {
+        position: relative;
+    }
+    
+    > *:not(svg)::after {
+        z-index: -1;
+        position: absolute;
+        bottom: .1em;
+        border-radius: .5rem;
+        left: 0;
+        content: "";
+        height: 2px;
+        background: base_variables.$black;
+        width: 0;
+        transition: .2s width ease-out, .2s height ease-out;
+    }
+    
+    &:hover {
+        > *:not(svg)::after {
+            width: 100%;
+        }
+    }
+}
+
+.underline-hover {
+    position: relative;
+    &::after {
+        z-index: -1;
+        position: absolute;
+        bottom: .1em;
+        border-radius: .5rem;
+        left: 0;
+        content: "";
+        height: 2px;
+        background: base_variables.$black;
+        width: 0;
+        transition: .2s width ease-out, .2s height ease-out;
+    }
+    &:hover {
+        &::after {
+            width: 100%;
+        }
+    }
+}
+
+.underline-hover--orange {
+    &::after {
+        background: base_variables.$orange;
     }
 }
