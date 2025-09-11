@@ -11,7 +11,7 @@
     // it will also prevent a horizontal scrollbar from appearing?????
     // more so about fixed element size overflow than track size but ....   
     // good thoughts so far!
-    
+
     // the use of vw for element margin in with a flex layout
     // ... will come back to bite us if a vertical scrollbar appears,
     // .. and if the viewport is too small to support the margin + other elements.
@@ -22,15 +22,11 @@
     //  ... as a percentage width here will calculate based on the <li> parent.
     // Thus, grid is the best option here. We can account for the field width + its percentage gap. Win win.
     // Plus, flexbox is a bit viral given its single directionality.
-    
+
     --search-field-width: 28rem;
-    
+
     display: grid;
-    grid: 1fr
-          /
-          max-content
-          calc(var(--search-field-width) + 12.95%)
-          auto; // 12.95% of the nav-bar
+    grid: 1fr / max-content calc(var(--search-field-width) + 12.95%) auto; // 12.95% of the nav-bar
     align-items: center;
     justify-items: right;
 
@@ -110,7 +106,7 @@
 
                 transition: .4s outline;
                 outline: 1px solid transparent;
-                
+
                 &:focus {
                     outline: 1px solid rbg(from base_variables.$oranger r g b / 99%);
                 }
@@ -158,13 +154,14 @@
                 fill: base_variables.$white;
                 /* remove whitespace underneath replaced element */
                 vertical-align: bottom;
-                
+
                 path {
                     fill: base_variables.$white;
                 }
             }
-            
+
             transition: .2s background;
+
             &:hover {
                 background: rgb(from base_variables.$black r g b / 96%);
             }
@@ -179,76 +176,77 @@
     width: min-content;
     position: relative;
     padding: 4rem;
-    
+
     // right border
     &::after {
         content: "";
-        
+
         position: absolute;
         right: 0;
         top: 0;
-        
+
         height: 100%;
         width: 2px;
-        
+
         background: linear-gradient(180deg, rgba(156, 160, 170, 0.064) 0%, rgba(156, 160, 170, 0.128) 16%, rgba(156, 160, 170, 0.2) 32%, rgba(222, 135, 104, 0.128) 48%, rgba(222, 135, 104, 0.128) 64%, rgba(156, 160, 170, 0.064) 80%);
     }
-    
+
     .sidebar-navlist {
         margin-bottom: 4rem;
-        
+
         .navlist-item {
             width: fit-content;
-            
+
             &::marker {
                 font-size: 0;
             }
-            
+
             /* icons should each be specific in their dimensions according to the design */
             svg {
                 width: 2rem;
                 height: 2rem;
                 outline: 1px solid red;
             }
-            
+
             .item-link {
                 display: flex;
                 align-items: center; // don't stretch and cause poor vertical alignment for text with a smaller block length than the largest element in the line (the icon)
                 gap: 0.625rem;
             }
         }
-        
+
         .navlist-item:nth-child(n+2) {
             margin-top: 2rem;
         }
     }
-    
+
     .recent-thread-list {
         margin-top: .75rem;
         /* Not sure why body's max-content column track inline length squishes this. Explicitly give max-content width to the recently viewed subreddit: */
         width: max-content;
-        
+
         .list__item {
             &::marker {
                 font-size: 0px;
             }
         }
+
         .item__link {
             display: grid;
-            grid: "logo subreddit" 1fr
-                  "logo thread-title" 1fr
-                  / auto 1fr;
+            grid: "logo subreddit" 1fr "logo thread-title" 1fr / auto 1fr;
             column-gap: .5rem;
-            
+
             .thread__icon {
                 width: 2rem;
                 aspect-ratio: 1/1;
                 grid-area: logo;
                 align-self: center;
             }
+
             .thread__subreddit {
                 grid-area: subreddit;
             }
+
             .thread__title {
                 grid-area: thread-title;
             }
@@ -263,4 +261,74 @@
     border-radius: 1rem;
     border: 1px solid rgb(19 20 22 / 32%);
     background: #E9EAEC;
+    margin-left: 1rem;
+    margin-top: 2rem;
+
+    .publication-info {
+        display: grid;
+        grid: "icon subreddit published" 1fr "icon author ." 1fr / auto auto auto;
+        column-gap: .5rem;
+        row-gap: .25rem;
+        width: fit-content;
+
+        .icon {
+            grid-area: icon;
+        }
+
+        .subreddit {
+            grid-area: subreddit;
+        }
+
+        .published {
+            grid-area: published;
+            font-size: .75rem;
+            color: rgb(14 17 27 / 56%);
+            align-self: center;
+            
+            /*
+               An inherited value takes effect for an element
+               only if no other style declaration has been
+               applied directly to the element.
+               
+               A style exists in the base to color all elements black.
+               Thus, we must override time's black color to make it inherit from published.
+            */
+            time {
+                color: inherit;
+            }
+        }
+
+        .author {
+            grid-area: author;
+            font-size: .75rem;
+        }
+    }
+
+    .card__title,
+    .card__title+* {
+        margin-top: .5rem;
+    }
+
+    .card__title {
+        font-size: 1.5rem;
+    }
+
+    .social-buttons {
+        margin-top: .75rem;
+        display: flex;
+        justify-content: start;
+        align-items: flex-start;
+        
+        /*
+            An inherited value takes effect for an element
+            only if no other style declaration has been
+            applied directly to the element.
+            
+            A style exists in the base to color all elements black.
+            Thus, we must override the nested paragraph's black color to make it inherit from social-buttons.
+        */
+        p {
+            color: inherit;
+        }
+    }
 }

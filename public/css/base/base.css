@@ -1,14 +1,18 @@
 @charset "UTF-8";
-* {
+*, ::before, ::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: hsl(278, 18%, 9%);
-  font-family: "Rubik";
+}
+
+body * {
   font-weight: 500;
+  font-family: "Rubik";
+  color: inherit;
 }
 
 body {
+  color: hsl(278, 18%, 9%);
   background: hsl(220, 7%, 92%);
   height: 100vh;
   outline: 2px solid red;
@@ -243,6 +247,66 @@ button {
   border-radius: 1rem;
   border: 1px solid rgba(19, 20, 22, 0.32);
   background: #E9EAEC;
+  margin-left: 1rem;
+  margin-top: 2rem;
+}
+.thread-card .publication-info {
+  display: grid;
+  grid: "icon subreddit published" 1fr "icon author ." 1fr/auto auto auto;
+  column-gap: 0.5rem;
+  row-gap: 0.25rem;
+  width: fit-content;
+}
+.thread-card .publication-info .icon {
+  grid-area: icon;
+}
+.thread-card .publication-info .subreddit {
+  grid-area: subreddit;
+}
+.thread-card .publication-info .published {
+  grid-area: published;
+  font-size: 0.75rem;
+  color: rgba(14, 17, 27, 0.56);
+  align-self: center;
+  /*
+     An inherited value takes effect for an element
+     only if no other style declaration has been
+     applied directly to the element.
+
+     A style exists in the base to color all elements black.
+     Thus, we must override time's black color to make it inherit from published.
+  */
+}
+.thread-card .publication-info .published time {
+  color: inherit;
+}
+.thread-card .publication-info .author {
+  grid-area: author;
+  font-size: 0.75rem;
+}
+.thread-card .card__title,
+.thread-card .card__title + * {
+  margin-top: 0.5rem;
+}
+.thread-card .card__title {
+  font-size: 1.5rem;
+}
+.thread-card .social-buttons {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  /*
+      An inherited value takes effect for an element
+      only if no other style declaration has been
+      applied directly to the element.
+
+      A style exists in the base to color all elements black.
+      Thus, we must override the nested paragraph's black color to make it inherit from social-buttons.
+  */
+}
+.thread-card .social-buttons p {
+  color: inherit;
 }
 
 /*# sourceMappingURL=base.css.map */

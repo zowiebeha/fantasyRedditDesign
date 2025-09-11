@@ -1,17 +1,23 @@
 @use "base_variables";
 
-* {
+*, ::before, ::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    
-    color: base_variables.$black;
-    
-    font-family: "Rubik";
+}
+
+// certain elements like inputs define their own font, elements like headings define their own weight.
+// override this:
+body * {
     font-weight: 500;
+    font-family: "Rubik";
+    color: inherit; // anchors specify a different color
 }
 
 body {
+    // elements will inherit their color from the body.
+    color: base_variables.$black;
+    
     background: base_variables.$white;
     height: 100vh;
     outline: 2px solid red;
