@@ -64,3 +64,17 @@ button {
     cursor: pointer;
     border: none;
 }
+
+/* icons should each be specific in their dimensions according to the design */
+// don't match nested svgs included with <use>
+*:not(svg) > svg {
+    // why does *-content not work?
+    // firefox fallbacks
+    width: 2rem;
+    height: 2rem;
+    
+    width: attr(data-width px);
+    height: attr(data-height px);
+    outline: 1px solid red;
+    pointer-events: none; // don't display <title>s on hover
+}

@@ -55,6 +55,16 @@ button {
   border: none;
 }
 
+/* icons should each be specific in their dimensions according to the design */
+*:not(svg) > svg {
+  width: 2rem;
+  height: 2rem;
+  width: attr(data-width px);
+  height: attr(data-height px);
+  outline: 1px solid red;
+  pointer-events: none;
+}
+
 .sr-only {
   position: absolute;
   left: -100vw;
@@ -114,7 +124,6 @@ button {
   left: 0.5rem;
   top: 50%;
   transform: translate(1rem, -50%);
-  pointer-events: none;
 }
 .nav-list #search-form .icon-field-wrapper .field-icon path {
   fill: hsl(16, 99%, 51%);
@@ -198,15 +207,9 @@ button {
 }
 .sidebar .sidebar-navlist .navlist-item {
   width: fit-content;
-  /* icons should each be specific in their dimensions according to the design */
 }
 .sidebar .sidebar-navlist .navlist-item::marker {
   font-size: 0;
-}
-.sidebar .sidebar-navlist .navlist-item svg {
-  width: 2rem;
-  height: 2rem;
-  outline: 1px solid red;
 }
 .sidebar .sidebar-navlist .navlist-item .item-link {
   display: flex;
@@ -226,8 +229,11 @@ button {
 }
 .sidebar .recent-thread-list .item__link {
   display: grid;
-  grid: "logo subreddit" 1fr "logo thread-title" 1fr/auto 1fr;
+  /* all auto vs. all 1fr??? hmm.. what is fr based on here? is it auto + any other available space?
+  why is there additional space when I use fr? maybe a glitch? */
+  grid: "logo subreddit" auto "logo thread-title" auto/auto auto;
   column-gap: 0.5rem;
+  row-gap: 0.25rem;
 }
 .sidebar .recent-thread-list .item__link .thread__icon {
   width: 2rem;
@@ -240,30 +246,41 @@ button {
 }
 .sidebar .recent-thread-list .item__link .thread__title {
   grid-area: thread-title;
+  font-size: 0.75rem;
 }
 
-.thread-card {
+.card-list {
+  display: flex;
+  align-items: flex-end;
+  column-gap: 2rem;
+}
+
+.card {
   padding: 0.75rem;
   border-radius: 1rem;
   border: 1px solid rgba(19, 20, 22, 0.32);
   background: #E9EAEC;
+}
+
+.card--thread-card {
   margin-left: 1rem;
   margin-top: 2rem;
+  width: 40rem;
 }
-.thread-card .publication-info {
+.card--thread-card .publication-info {
   display: grid;
   grid: "icon subreddit published" 1fr "icon author ." 1fr/auto auto auto;
   column-gap: 0.5rem;
   row-gap: 0.25rem;
   width: fit-content;
 }
-.thread-card .publication-info .icon {
+.card--thread-card .publication-info .icon {
   grid-area: icon;
 }
-.thread-card .publication-info .subreddit {
+.card--thread-card .publication-info .subreddit {
   grid-area: subreddit;
 }
-.thread-card .publication-info .published {
+.card--thread-card .publication-info .published {
   grid-area: published;
   font-size: 0.75rem;
   color: rgba(14, 17, 27, 0.56);
@@ -277,25 +294,25 @@ button {
      Thus, we must override time's black color to make it inherit from published.
   */
 }
-.thread-card .publication-info .published time {
+.card--thread-card .publication-info .published time {
   color: inherit;
 }
-.thread-card .publication-info .author {
+.card--thread-card .publication-info .author {
   grid-area: author;
   font-size: 0.75rem;
 }
-.thread-card .card__title,
-.thread-card .card__title + * {
+.card--thread-card .card__title,
+.card--thread-card .card__title + * {
   margin-top: 0.5rem;
 }
-.thread-card .card__title {
+.card--thread-card .card__title {
   font-size: 1.5rem;
 }
-.thread-card .social-buttons {
+.card--thread-card .social-buttons {
   margin-top: 0.75rem;
   display: flex;
-  justify-content: start;
-  align-items: flex-start;
+  gap: 1rem;
+  align-items: center;
   /*
       An inherited value takes effect for an element
       only if no other style declaration has been
@@ -305,8 +322,73 @@ button {
       Thus, we must override the nested paragraph's black color to make it inherit from social-buttons.
   */
 }
-.thread-card .social-buttons p {
+.card--thread-card .social-buttons p {
   color: inherit;
+  line-height: 1.5;
+}
+.card--thread-card .social-buttons .btn--like,
+.card--thread-card .social-buttons .btn--dislike {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.card--thread-options {
+  height: 10.75rem;
+  display: grid;
+  grid: "credits badge" 1fr "btn-share btn-share" 1fr "btn-buy btn-sell" 1fr/1fr 1fr;
+  place-items: center;
+  gap: 2rem 0.75rem;
+}
+.card--thread-options .credit-cost {
+  grid-area: credits;
+  font-size: 1.25rem;
+}
+.card--thread-options .badge--growth {
+  grid-area: badge;
+  position: relative;
+}
+.card--thread-options .badge--growth .icon-wrapper {
+  position: absolute;
+  width: 2rem;
+  height: 100%;
+  border-radius: 0.375rem;
+  background: #0B6F1A;
+}
+.card--thread-options .badge--growth .icon-wrapper .icon--growth {
+  width: 100%;
+  height: 100%;
+  fill: #2CC944;
+}
+.card--thread-options .badge--growth .growth__amount {
+  width: fit-content;
+  padding: 0 1rem 0 3rem;
+  background: #8DE29A;
+  color: #1D862D;
+  border-radius: 0.375rem;
+}
+.card--thread-options .btn--share {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 1rem;
+  border-radius: 0.75rem;
+  background: #E0E0E0;
+  border: 1px solid rgba(14, 17, 27, 0.16);
+  grid-area: btn-share;
+}
+.card--thread-options .btn--buy {
+  border-radius: 1rem;
+  padding: 0.5rem 2.5rem;
+  background: #F44200;
+  color: #ECEDEE;
+  grid-area: btn-buy;
+}
+.card--thread-options .btn--sell {
+  border-radius: 1rem;
+  padding: 0.5rem 2.5rem;
+  background: #C9260C;
+  color: #ECEDEE;
+  grid-area: btn-sell;
 }
 
 /*# sourceMappingURL=base.css.map */

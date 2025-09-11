@@ -1,0 +1,29 @@
+
+Complete the landing page fast & dirty
+
+Mobile versions
+
+Code clean-up
+    reduce any unnecessary nested flexboxes
+    fix missing aria
+    fix accessibility issues
+    fix BEM naming
+    cleanup css
+    remove unused css
+    refactor css
+---
+
+Portfolio page
+Transaction History page
+Top charts page
+
+Login page
+Registration page
+Password reset page
+Account settings page
+Profile page (will take you to your portfolio as of now)
+
+Trade page (might not be needed)
+
+Bonus: Credit purchase page (just adds credits to your balance atm)
+    a three-card showcase, like https://certificates.dev/javascript

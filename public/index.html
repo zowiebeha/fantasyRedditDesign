@@ -67,7 +67,7 @@
             <ul class="sidebar-navlist">
                 <li class="navlist-item">
                     <a class="item-link" href="#">
-                        <svg class="icon" viewBox="0 0 26 24">
+                        <svg class="icon" data-width="26" data-height="24" viewBox="0 0 26 24">
                             <title>Ribbon medal award icon</title>
                             <use href="./assets/svg/ribbon-icon.svg#ribbon-icon"></use>
                         </svg>
@@ -77,7 +77,7 @@
                 </li>
                 <li class="navlist-item">
                     <a class="item-link" href="#">
-                        <svg class="icon" viewBox="0 0 21 24">
+                        <svg class="icon" data-width="21" data-height="24" viewBox="0 0 21 24">
                             <title>Fire flame icon</title>
                             <use href="./assets/svg/flame-icon.svg#flame-icon"></use>
                         </svg>
@@ -87,7 +87,7 @@
                 </li>
                 <li class="navlist-item">
                     <a class="item-link" href="#">
-                        <svg class="icon" viewBox="0 0 26 26">
+                        <svg class="icon" data-width="26" data-height="26" viewBox="0 0 26 26">
                             <title>Opposing diagonal arrows icon</title>
                             <use href="./assets/svg/trade-icon.svg#trade-icon"></use>
                         </svg>
@@ -97,7 +97,7 @@
                 </li>
                 <li class="navlist-item">
                     <a class="item-link" href="#">
-                        <svg class="icon" viewBox="0 0 25 18">
+                        <svg class="icon" data-width="25" data-height="18" viewBox="0 0 25 18">
                             <title>Folder icon</title>
                             <use href="./assets/svg/folder-icon.svg#folder-icon"></use>
                         </svg>
@@ -123,44 +123,87 @@
     
     <!-- Main content -->
     <main>
+        <svg class="icon icon--growth" style="width: 5rem; height: 5rem; stroke: red;" data-width="15" data-height="9" viewBox="0 0 15 9">
+            <title>Diagonal jagged green arrow icon going from left to right</title>
+            <use href="./assets/svg/rise-icon.svg#rise-icon" style="width: 5rem; height: 5rem; stroke: red;"></use>
+        </svg>
+                            
         <article class="scrollable-container">
             <h2 class="text-orange">The best place to discover, own, and trade threads:</h2>
             
-            <article class="thread-card">
-                <div class="publication-info">
-                    <img class="icon" src="./media/recent-1.png" alt="Subreddit logo for r/RedesignHelp">
-                    <p class="subreddit">r/RedesignHelp</p>
-                    <p class="author">ZadocPaet</p>
-                    <p class="published">
-                        <time datetime="2017">• 8 yr. ago</time>
-                    </p>
-                </div>
-                <h1 class="card__title">Official reddit brand hex color codes...</h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum corporis vero cum, numquam necessitatibus obcaecati ratione earum eaque delectus, nobis maiores quisquam ea voluptas eum consectetur quidem perferendis nisi pariatur.
-                </p>
-                
-                <!-- improve aria -->
-                <div class="social-buttons">
-                    <div class="like">
-                        <svg class="icon" viewBox="0 0 18 20">
-                            <title>Up arrow icon</title>
-                            <use href="./assets/svg/like-icon.svg#like-icon"></use>
-                        </svg>
+            
+            <div class="card-list">
+                <article class="card card--thread-card">
+                    <a href="#">
+                        <div class="publication-info">
+                            <img class="icon" src="./media/recent-1.png" alt="Subreddit logo for r/RedesignHelp">
+                            <p class="subreddit">r/RedesignHelp</p>
+                            <p class="author">ZadocPaet</p>
+                            <p class="published">
+                                <time datetime="2017">• 8 yr. ago</time>
+                            </p>
+                        </div>
+                        <h1 class="card__title">Official reddit brand hex color codes...</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum corporis vero cum, numquam necessitatibus obcaecati ratione earum eaque delectus, nobis maiores quisquam ea voluptas eum consectetur quidem perferendis nisi pariatur.
+                        </p>
                         
-                        <p>3.9k</p>
+                        <!-- improve aria -->
+                        <div class="social-buttons">
+                            <!-- will need to prevent event bubbling on these -->
+                            <button class="btn btn--like">
+                                <svg class="icon" data-width="18" data-height="20" viewBox="0 0 18 20">
+                                    <title>Up arrow icon</title>
+                                    <use href="./assets/svg/like-icon.svg#like-icon"></use>
+                                </svg>
+                                
+                                <p>3.9k</p>
+                            </button>
+                            
+                            <button class="btn btn--dislike">
+                                <svg class="icon" data-width="18" data-height="20" viewBox="0 0 18 20">
+                                    <title>Down arrow icon</title>
+                                    <use href="./assets/svg/dislike-icon.svg#dislike-icon"></use>
+                                </svg>
+                                
+                                <p>231</p>
+                            </button>
+                        </div>
+                    </a>
+                </article>
+                
+                <div class="card card--thread-options">
+                    <h2 class="credit-cost">52 credits</h2>
+                    
+                    <div class="badge badge--growth">
+                        <div class="icon-wrapper">
+                            <svg class="icon icon--growth" data-width="15" data-height="9" viewBox="0 0 15 9">
+                                <title>Diagonal jagged green arrow icon going from left to right</title>
+                                <use href="./assets/svg/rise-icon.svg#rise-icon"></use>
+                            </svg>
+                        </div>
+                        
+                        <p class="growth__amount">+35%</p>
                     </div>
                     
-                    <div class="dislike">
-                        <svg class="icon" viewBox="0 0 18 20">
-                            <title>Down arrow icon</title>
-                            <use href="./assets/svg/dislike-icon.svg#dislike-icon"></use>
+                    <button class="btn btn--share">
+                        <p>Share for +30 credits</p>
+                        <svg class="icon" data-width="24" data-height="24" viewBox="0 0 24 24">
+                            <title>Reddit logo</title>
+                            <use href="./assets/svg/reddit-icon.svg#reddit-icon"></use>
                         </svg>
-                        
-                        <p>231</p>
-                    </div>
+                    </button>
+                    
+                    <button class="btn btn--buy">
+                        Buy
+                    </button>
+                    
+                    <button class="btn btn--sell">
+                        Sell
+                    </button>
+
                 </div>
-            </article>
+            </div>
         </article>
     </main>
 </body>
