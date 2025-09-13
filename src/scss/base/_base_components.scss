@@ -26,18 +26,20 @@
     --search-field-width: 28rem;
 
     display: grid;
-    grid: 1fr / max-content auto auto; // 12.95% of the nav-bar
+    grid: 1fr / max-content max-content max-content;
+    justify-content: space-between;
     
     @media screen and (max-width: base_variables.$breakpoint-md) {
-        column-gap: 2rem;
+        grid: 1fr / max-content max-content max-content;
+        width: 100%;
         --search-field-width: 100%;
     }
+    
     @media screen and (max-width: base_variables.$breakpoint-sm) {
         grid: ". logo logo" 1fr
               ". search-field account-info" 1fr
         / max-content max-content max-content;
         column-gap: 2rem;
-        --search-field-width: 100%;
         
         .account-info {
             grid-area: account-info;
@@ -90,8 +92,10 @@
             font-size: 0px;
         }
         
-        @media screen and (max-width: base_variables.$breakpoint-md) {
-            width: fit-content;
+        &.search {
+            @media screen and (max-width: base_variables.$breakpoint-md) {
+                width: 100%;
+            }
         }
     }
 
@@ -232,6 +236,11 @@
     padding-bottom: 0; // not needed since the block elements will just flow along the block axis, and
                        // as the content currently is, it can't shrink any further in block length.
 
+                       
+    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+        display: none;
+    }
+    
     // right border
     &::after {
         content: "";
@@ -331,7 +340,17 @@
 .card-list {
     display: flex;
     align-items: flex-end;
-    column-gap: 2rem;
+    gap: 2rem;
+    
+    @media screen and (max-width: base_variables.$breakpoint-lg) {
+        flex-direction: column;
+        align-items: flex-end;
+        position: relative;
+    }
+    
+    @media screen and (max-width: base_variables.$breakpoint-sm-l) {
+        align-items: center;
+    }
 }
 
 .card {
@@ -345,6 +364,11 @@
     margin-left: 1rem;
     margin-top: 2rem;
     width: 40rem;
+    
+    @media screen and (max-width: base_variables.$breakpoint-lg) {
+        margin-left: 0;
+        width: 100%;
+    }
 
     .publication-info {
         display: grid;
@@ -430,6 +454,21 @@
           / 1fr 1fr;
     place-items: center;
     gap: 1.5rem .75rem;
+    
+    @media screen and (max-width: base_variables.$breakpoint-lg) {
+        width: fit-content;
+        position: absolute;
+        right: 1rem;
+        bottom: -8.5rem;
+    }
+    
+    @media screen and (max-width: base_variables.$breakpoint-sm-l) {
+        position: static;
+    }
+    
+    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+        width: 100%;
+    }
     
     .credit-cost {
         grid-area: credits;
