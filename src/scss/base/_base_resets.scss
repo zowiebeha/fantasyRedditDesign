@@ -4,6 +4,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 // certain elements like inputs define their own font, elements like headings define their own weight.
@@ -20,6 +21,7 @@ body {
     
     background: base_variables.$white;
     height: 100vh;
+    outline: 1px solid red;
     display: grid;
     grid:
         "header header" auto

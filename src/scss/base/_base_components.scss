@@ -181,9 +181,12 @@
 // Sidebar
 
 .sidebar {
+    height: 100%;
     width: min-content;
     position: relative;
     padding: 4rem;
+    padding-bottom: 0; // not needed since the block elements will just flow along the block axis, and
+                       // as the content currently is, it can't shrink any further in block length.
 
     // right border
     &::after {
@@ -225,11 +228,21 @@
         margin-top: .75rem;
         /* Not sure why body's max-content column track inline length squishes this. Explicitly give max-content width to the recently viewed subreddit: */
         width: max-content;
+        height: 14.75rem;
+        
+        scrollbar-gutter: auto;
+        overflow-y: auto;
+        scrollbar-color: base_variables.$black transparent;
+        scrollbar-width: thin;
 
         .list__item {
             &::marker {
                 font-size: 0px;
             }
+        }
+        
+        .list__item:nth-child(n+2) {
+            margin-top: .25rem;
         }
 
         .item__link {
@@ -239,16 +252,15 @@
             grid: "logo subreddit" auto
                   "logo thread-title" auto
                   / auto auto;
-            column-gap: .5rem;
-            row-gap: .25rem;
             
-            outline: 1px solid transparent;
-            outline-offset: .5rem;
-            transition: .2s outline-color;
+            border: 1px solid transparent;
+            padding: .5rem;
+            transition: .4s border-color;
             border-radius: .5rem;
+            gap: .25rem .5rem;
             
             &:hover {
-                outline: 1px solid hsl(from base_variables.$white h s calc(l - 32));
+                border-color: hsl(from base_variables.$white h s calc(l - 32));
             }
 
             .thread__icon {
@@ -392,9 +404,11 @@
             border-radius: 0.375rem;
             background: #0B6F1A;
             
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
             .icon--growth {
-                width: 100%;
-                height: 100%;
                 fill: #2CC944;
                 // padding: .5rem;
             }
@@ -402,7 +416,7 @@
         
         .growth__amount {
             width: fit-content;
-            padding: 0 1rem 0 3rem;
+            padding: 0 1rem 0 2.5rem;
             background: #8DE29A;
             color: #1D862D;
             border-radius: 0.375rem;
