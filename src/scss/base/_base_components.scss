@@ -26,7 +26,33 @@
     --search-field-width: 28rem;
 
     display: grid;
-    grid: 1fr / max-content calc(var(--search-field-width) + 12.95%) auto; // 12.95% of the nav-bar
+    grid: 1fr / max-content auto auto; // 12.95% of the nav-bar
+    
+    @media screen and (max-width: base_variables.$breakpoint-md) {
+        column-gap: 2rem;
+        --search-field-width: 100%;
+    }
+    @media screen and (max-width: base_variables.$breakpoint-sm) {
+        grid: ". logo logo" 1fr
+              ". search-field account-info" 1fr
+        / max-content max-content max-content;
+        column-gap: 2rem;
+        --search-field-width: 100%;
+        
+        .account-info {
+            grid-area: account-info;
+        }
+        .search {
+            grid-area: search-field;
+        }
+        .logo {
+            grid-area: logo;
+            align-self: center;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    
     align-items: center;
     justify-items: right;
 
@@ -63,13 +89,17 @@
         &::marker {
             font-size: 0px;
         }
+        
+        @media screen and (max-width: base_variables.$breakpoint-md) {
+            width: fit-content;
+        }
     }
 
     #search-form {
         .icon-field-wrapper {
             position: relative;
             height: 3rem;
-
+            
             .field-icon {
                 position: absolute;
                 // 27px by 24px
@@ -125,15 +155,29 @@
         display: grid;
         grid: "username btn--options" auto "credits btn--options" auto / auto auto;
 
+        @media screen and (max-width: base_variables.$breakpoint-md) {
+            display: block;
+        }
+        
         column-gap: 1rem;
 
         /* use percentage margins? or use grid on the nav-list instead of flex w/ percentage inline-length columns ✅ */
         .username {
+            @media screen and (max-width: base_variables.$breakpoint-md) {
+                position: absolute;
+                left: -200vw;
+            }
+        
             grid-area: username;
             align-self: end;
         }
 
         .credits {
+            @media screen and (max-width: base_variables.$breakpoint-md) {
+                position: absolute;
+                left: -200vw;
+            }
+        
             grid-area: credits;
         }
 

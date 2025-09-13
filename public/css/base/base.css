@@ -85,10 +85,35 @@ button {
   position: relative;
   --search-field-width: 28rem;
   display: grid;
-  grid: 1fr/max-content calc(var(--search-field-width) + 12.95%) auto;
+  grid: 1fr/max-content auto auto;
   align-items: center;
   justify-items: right;
   /* fake borders so we can give them different linear gradients */
+}
+@media screen and (max-width: 66rem) {
+  .nav-list {
+    column-gap: 2rem;
+    --search-field-width: 100%;
+  }
+}
+@media screen and (max-width: 54rem) {
+  .nav-list {
+    grid: ". logo logo" 1fr ". search-field account-info" 1fr/max-content max-content max-content;
+    column-gap: 2rem;
+    --search-field-width: 100%;
+  }
+  .nav-list .account-info {
+    grid-area: account-info;
+  }
+  .nav-list .search {
+    grid-area: search-field;
+  }
+  .nav-list .logo {
+    grid-area: logo;
+    align-self: center;
+    width: 100%;
+    text-align: center;
+  }
 }
 .nav-list::before {
   content: "";
@@ -110,6 +135,11 @@ button {
 }
 .nav-list .nav-item::marker {
   font-size: 0px;
+}
+@media screen and (max-width: 66rem) {
+  .nav-list .nav-item {
+    width: fit-content;
+  }
 }
 .nav-list #search-form .icon-field-wrapper {
   position: relative;
@@ -156,12 +186,29 @@ button {
   column-gap: 1rem;
   /* use percentage margins? or use grid on the nav-list instead of flex w/ percentage inline-length columns ✅ */
 }
+@media screen and (max-width: 66rem) {
+  .nav-list .account-info {
+    display: block;
+  }
+}
 .nav-list .account-info .username {
   grid-area: username;
   align-self: end;
 }
+@media screen and (max-width: 66rem) {
+  .nav-list .account-info .username {
+    position: absolute;
+    left: -200vw;
+  }
+}
 .nav-list .account-info .credits {
   grid-area: credits;
+}
+@media screen and (max-width: 66rem) {
+  .nav-list .account-info .credits {
+    position: absolute;
+    left: -200vw;
+  }
 }
 .nav-list .account-info .btn--options {
   width: 3rem;
