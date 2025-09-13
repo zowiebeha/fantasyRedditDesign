@@ -58,11 +58,8 @@ button {
 
 /* icons should each be specific in their dimensions according to the design */
 *:not(svg) > svg.icon {
-  width: 2rem;
-  height: 2rem;
-  width: attr(data-width px);
-  height: attr(data-height px);
-  outline: 1px solid red;
+  width: 1.5rem;
+  height: 1.5rem;
   pointer-events: none;
 }
 
@@ -357,11 +354,10 @@ button {
 }
 
 .card--thread-options {
-  height: 10.75rem;
   display: grid;
   grid: "credits badge" 1fr "btn-share btn-share" 1fr "btn-buy btn-sell" 1fr/1fr 1fr;
   place-items: center;
-  gap: 2rem 0.75rem;
+  gap: 1.5rem 0.75rem;
 }
 .card--thread-options .credit-cost {
   grid-area: credits;
@@ -383,10 +379,11 @@ button {
 }
 .card--thread-options .badge--growth .icon-wrapper .icon--growth {
   fill: #2CC944;
+  width: 1rem;
 }
 .card--thread-options .badge--growth .growth__amount {
   width: fit-content;
-  padding: 0 1rem 0 2.5rem;
+  padding: 0 0.75rem 0 2.5rem;
   background: #8DE29A;
   color: #1D862D;
   border-radius: 0.375rem;
@@ -395,7 +392,7 @@ button {
   display: flex;
   align-items: center;
   column-gap: 1.5rem;
-  padding: 0.25rem 0.5rem 0.25rem 1rem;
+  padding: 0.25rem 0rem 0.25rem 1rem;
   width: 100%;
   border-radius: 0.75rem;
   background: #E0E0E0;

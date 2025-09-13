@@ -71,12 +71,12 @@ button {
 *:not(svg) > svg.icon {
     // why does *-content not work?
     // firefox fallbacks
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     
-    width: attr(data-width px);
-    height: attr(data-height px);
+    // width: attr(data-width px);
+    // height: attr(data-height px);
     
-    outline: 1px solid red;
+    // outline: 1px solid red;
     pointer-events: none; // don't display <title>s on hover
 }
