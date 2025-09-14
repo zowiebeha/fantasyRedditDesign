@@ -1,6 +1,16 @@
 @use "base_variables";
 
-// Navbar
+// Navbar Header
+
+body:has(.nav-list #btn--toggle-sidebar:checked) {
+    > .sidebar {
+        display: block;
+        @starting-style {
+            left: -100%;
+        }
+        left: 0;
+    }
+}
 
 .nav-list {
     padding: 1.25rem 4rem;
@@ -36,10 +46,10 @@
     }
     
     @media screen and (max-width: base_variables.$breakpoint-sm) {
-        grid: ". logo logo" 1fr
+        grid: "logo logo logo" 1fr
               ". search-field account-info" 1fr
-        / max-content max-content max-content;
-        column-gap: 2rem;
+        / 0px 1fr max-content;
+        gap: 2rem .5rem;
         
         .account-info {
             grid-area: account-info;
@@ -52,6 +62,17 @@
             align-self: center;
             width: 100%;
             text-align: center;
+        }
+    }
+    
+    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+        grid: "logo logo logo" 1fr
+              "toggle-sidebar-form search-field account-info" 1fr
+        / max-content max-content max-content;
+        gap: 2rem .5rem;
+    
+        #toggle-sidebar-form {
+            grid-area: toggle-sidebar-form;
         }
     }
     
@@ -98,7 +119,52 @@
             }
         }
     }
+    
+    #toggle-sidebar-form {
+        @media screen and (min-width: base_variables.$breakpoint-sm-sm) {
+            display: none;
+        }
+    }
 
+    #btn--toggle-sidebar {
+        appearance: none; // override browser styling
+        
+        background: base_variables.$white;
+        border: 2px solid #C4BBBB;
+        box-shadow: 0 1px 0 rgb(156 161 170 / 32%);
+        
+        border-radius: 1rem;
+        width: 3rem;
+        aspect-ratio: 1 / 1;
+        
+        display: grid;
+        place-items: center;
+        
+        &::after {
+            content: url("../../assets/svg/hamburger-icon.svg")
+                     / "An icon of three horizontal lines which represent a textured hamburger menu icon.";
+            display: block;
+            width: 52%;
+            height: fit-content;
+        }
+        &:checked {
+            &::after {
+                content: url("../../assets/svg/close-icon.svg")
+                     / "A letter X representing a close icon.";
+                width: 64%;
+            }
+            background: hsl(from base_variables.$white h s calc(l - 12));
+        }
+        
+        transition: .2s background;
+        &:hover {
+            cursor: pointer;
+        }
+        &:not(:checked):hover {
+            background: hsl(from base_variables.$white h s calc(l - 4));
+        }
+    }
+    
     #search-form {
         .icon-field-wrapper {
             position: relative;
@@ -164,7 +230,7 @@
         }
         
         column-gap: 1rem;
-
+        
         /* use percentage margins? or use grid on the nav-list instead of flex w/ percentage inline-length columns ✅ */
         .username {
             @media screen and (max-width: base_variables.$breakpoint-md) {
@@ -239,6 +305,12 @@
                        
     @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
         display: none;
+        
+        position: absolute;
+        z-index: 1;
+        top: 10.64rem;
+        width: 100%;
+        background: base_variables.$white;
     }
     
     // right border

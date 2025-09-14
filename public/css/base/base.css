@@ -80,6 +80,22 @@ button {
   height: 100%;
 }
 
+@media screen and (min-width: 66rem) {
+  .no-lg {
+    display: none;
+  }
+}
+
+body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
+  display: block;
+  left: 0;
+}
+@starting-style {
+  body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
+    left: -100%;
+  }
+}
+
 .nav-list {
   padding: 1.25rem 4rem;
   position: relative;
@@ -100,8 +116,8 @@ button {
 }
 @media screen and (max-width: 54rem) {
   .nav-list {
-    grid: ". logo logo" 1fr ". search-field account-info" 1fr/max-content max-content max-content;
-    column-gap: 2rem;
+    grid: "logo logo logo" 1fr ". search-field account-info" 1fr/0px 1fr max-content;
+    gap: 2rem 0.5rem;
   }
   .nav-list .account-info {
     grid-area: account-info;
@@ -114,6 +130,15 @@ button {
     align-self: center;
     width: 100%;
     text-align: center;
+  }
+}
+@media screen and (max-width: 48rem) {
+  .nav-list {
+    grid: "logo logo logo" 1fr "toggle-sidebar-form search-field account-info" 1fr/max-content max-content max-content;
+    gap: 2rem 0.5rem;
+  }
+  .nav-list #toggle-sidebar-form {
+    grid-area: toggle-sidebar-form;
   }
 }
 .nav-list::before {
@@ -141,6 +166,42 @@ button {
   .nav-list .nav-item.search {
     width: 100%;
   }
+}
+@media screen and (min-width: 48rem) {
+  .nav-list #toggle-sidebar-form {
+    display: none;
+  }
+}
+.nav-list #btn--toggle-sidebar {
+  appearance: none;
+  background: hsl(220, 7%, 92%);
+  border: 2px solid #C4BBBB;
+  box-shadow: 0 1px 0 rgba(156, 161, 170, 0.32);
+  border-radius: 1rem;
+  width: 3rem;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  transition: 0.2s background;
+}
+.nav-list #btn--toggle-sidebar::after {
+  content: url("../../assets/svg/hamburger-icon.svg")/"An icon of three horizontal lines which represent a textured hamburger menu icon.";
+  display: block;
+  width: 52%;
+  height: fit-content;
+}
+.nav-list #btn--toggle-sidebar:checked {
+  background: hsl(from hsl(220, 7%, 92%) h s calc(l - 12));
+}
+.nav-list #btn--toggle-sidebar:checked::after {
+  content: url("../../assets/svg/close-icon.svg")/"A letter X representing a close icon.";
+  width: 64%;
+}
+.nav-list #btn--toggle-sidebar:hover {
+  cursor: pointer;
+}
+.nav-list #btn--toggle-sidebar:not(:checked):hover {
+  background: hsl(from hsl(220, 7%, 92%) h s calc(l - 4));
 }
 .nav-list #search-form .icon-field-wrapper {
   position: relative;
@@ -251,6 +312,11 @@ button {
 @media screen and (max-width: 48rem) {
   .sidebar {
     display: none;
+    position: absolute;
+    z-index: 1;
+    top: 10.64rem;
+    width: 100%;
+    background: hsl(220, 7%, 92%);
   }
 }
 .sidebar::after {
