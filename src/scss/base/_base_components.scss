@@ -409,7 +409,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         scrollbar-width: thin;    
         
         @media screen and (max-width: base_variables.$breakpoint-sm) {
-            overflow-y: visible;
+            // no more overflow
+            height: fit-content;
         }
 
         .list__item {

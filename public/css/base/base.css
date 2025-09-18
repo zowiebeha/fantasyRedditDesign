@@ -15,10 +15,9 @@ body * {
 body {
   color: hsl(278, 18%, 9%);
   background: hsl(220, 7%, 92%);
-  height: 100vh;
-  outline: 1px solid red;
   display: grid;
   grid: "header header" auto "sidebar main" 1fr/max-content 1fr;
+  height: 100vh;
 }
 body > header {
   grid-area: header;
@@ -30,6 +29,10 @@ body > main {
   grid-area: main;
 }
 
+html {
+  scrollbar-color: hsl(from hsl(16, 99%, 46%) h s calc(l - 32)) transparent;
+}
+
 main {
   height: 100%;
   overflow: hidden;
@@ -38,7 +41,7 @@ main {
 .scrollable-container {
   height: 100%;
   overflow-y: auto;
-  scrollbar-color: hsl(278, 18%, 9%) transparent;
+  scrollbar-color: hsl(from hsl(16, 99%, 46%) h s calc(l - 32)) transparent;
   padding: 4rem 3rem;
 }
 
@@ -393,7 +396,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 54rem) {
   #sidebar .recent-thread-list {
-    overflow-y: visible;
+    height: fit-content;
   }
 }
 #sidebar .recent-thread-list .list__item::marker {

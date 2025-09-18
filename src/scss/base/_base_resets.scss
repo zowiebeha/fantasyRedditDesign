@@ -18,16 +18,18 @@ body * {
 body {
     // elements will inherit their color from the body.
     color: base_variables.$black;
-    
     background: base_variables.$white;
-    height: 100vh;
-    outline: 1px solid red;
+
     display: grid;
     grid:
         "header header" auto
         "sidebar main" 1fr
         / max-content 1fr; // not sure why max-content auto results in odd behavior if main has no children... weird layout behavior
 
+    // expand sidebar & main to fill the whole screen instead of assuming the longest grid child's block length
+    // allows sidebar and main children tracks to stretch to fill
+    height: 100vh;
+        
     > header {
         grid-area: header;
     }
@@ -39,6 +41,16 @@ body {
     }
 }
 
+html {
+    // may appear when sidebar shows up on mobile
+    scrollbar-color: hsl(from base_variables.$orange h s calc(l - 32)) transparent;
+    
+    // why does the html scroll instead of the body?
+    // i guess the body fits to its contents so there's no overflow.
+    // the html is limited by the viewport size maybe?
+    // the aside overflows the body, which is 100% of the viewport height for some reason.
+}
+
 main {
     height: 100%;
     overflow: hidden;
@@ -47,7 +59,7 @@ main {
 .scrollable-container {
     height: 100%;
     overflow-y: auto;
-    scrollbar-color: base_variables.$black transparent;
+    scrollbar-color: hsl(from base_variables.$orange h s calc(l - 32)) transparent;
     
     padding: 4rem 3rem;
 }
