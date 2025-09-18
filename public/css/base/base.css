@@ -86,16 +86,19 @@ button {
   }
 }
 
-body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
+body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   display: block;
-  left: 0;
-}
-@starting-style {
-  body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
-    left: -100%;
-  }
+  animation: 0.6s ease-in-out animate-sidebar 1 forwards;
 }
 
+@keyframes animate-sidebar {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0;
+  }
+}
 .nav-list {
   padding: 1.25rem 4rem;
   position: relative;
@@ -111,13 +114,14 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
   .nav-list {
     grid: 1fr/max-content max-content max-content;
     width: 100%;
-    --search-field-width: 100%;
+    --search-field-width: 24rem;
   }
 }
 @media screen and (max-width: 54rem) {
   .nav-list {
-    grid: "logo logo logo" 1fr ". search-field account-info" 1fr/0px 1fr max-content;
-    gap: 2rem 0.5rem;
+    grid: "logo logo logo" 1fr ". search-field account-info" 1fr/max-content 1fr max-content;
+    gap: 2rem 1rem;
+    --search-field-width: 100%;
   }
   .nav-list .account-info {
     grid-area: account-info;
@@ -127,18 +131,24 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
   }
   .nav-list .logo {
     grid-area: logo;
-    align-self: center;
     width: 100%;
     text-align: center;
   }
 }
 @media screen and (max-width: 48rem) {
   .nav-list {
-    grid: "logo logo logo" 1fr "toggle-sidebar-form search-field account-info" 1fr/max-content max-content max-content;
+    grid: "logo logo logo" 1fr "toggle-sidebar-form search-field account-info" 1fr/max-content 1fr max-content;
     gap: 2rem 0.5rem;
   }
   .nav-list #toggle-sidebar-form {
     grid-area: toggle-sidebar-form;
+  }
+}
+@media screen and (max-width: 32rem) {
+  .nav-list {
+    grid: "logo logo logo logo" 1fr "search-field search-field search-field search-field" 1fr "toggle-sidebar-form toggle-sidebar-form account-info account-info" 1fr/max-content max-content max-content max-content;
+    padding: 1.25rem 1rem;
+    gap: 1rem 1rem;
   }
 }
 .nav-list::before {
@@ -167,6 +177,12 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
     width: 100%;
   }
 }
+@media screen and (max-width: 32rem) {
+  .nav-list .nav-item.search {
+    justify-self: center;
+    width: 82%;
+  }
+}
 @media screen and (min-width: 48rem) {
   .nav-list #toggle-sidebar-form {
     display: none;
@@ -174,7 +190,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
 }
 .nav-list #btn--toggle-sidebar {
   appearance: none;
-  background: hsl(220, 7%, 92%);
+  background: rgb(240, 240, 240);
   border: 2px solid #C4BBBB;
   box-shadow: 0 1px 0 rgba(156, 161, 170, 0.32);
   border-radius: 1rem;
@@ -188,20 +204,24 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
   content: url("../../assets/svg/hamburger-icon.svg")/"An icon of three horizontal lines which represent a textured hamburger menu icon.";
   display: block;
   width: 52%;
-  height: fit-content;
+  height: 1.2rem;
 }
 .nav-list #btn--toggle-sidebar:checked {
-  background: hsl(from hsl(220, 7%, 92%) h s calc(l - 12));
+  background: rgb(232, 227, 227);
 }
 .nav-list #btn--toggle-sidebar:checked::after {
   content: url("../../assets/svg/close-icon.svg")/"A letter X representing a close icon.";
   width: 64%;
+  height: 1.7rem;
 }
 .nav-list #btn--toggle-sidebar:hover {
   cursor: pointer;
 }
-.nav-list #btn--toggle-sidebar:not(:checked):hover {
-  background: hsl(from hsl(220, 7%, 92%) h s calc(l - 4));
+@media screen and (max-width: 32rem) {
+  .nav-list #btn--toggle-sidebar {
+    grid-area: toggle-sidebar-form;
+    justify-self: right;
+  }
 }
 .nav-list #search-form .icon-field-wrapper {
   position: relative;
@@ -253,6 +273,12 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
     display: block;
   }
 }
+@media screen and (max-width: 32rem) {
+  .nav-list .account-info {
+    margin-left: 0;
+    justify-self: left;
+  }
+}
 .nav-list .account-info .username {
   grid-area: username;
   align-self: end;
@@ -302,15 +328,20 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
   outline: 2px solid hsl(220, 7%, 92%);
 }
 
-.sidebar {
+#sidebar {
   height: 100%;
   width: min-content;
   position: relative;
   padding: 4rem;
   padding-bottom: 0;
 }
+@media screen and (max-width: 54rem) {
+  #sidebar {
+    height: fit-content;
+  }
+}
 @media screen and (max-width: 48rem) {
-  .sidebar {
+  #sidebar {
     display: none;
     position: absolute;
     z-index: 1;
@@ -319,7 +350,12 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
     background: hsl(220, 7%, 92%);
   }
 }
-.sidebar::after {
+@media screen and (max-width: 32rem) {
+  #sidebar {
+    top: 13.5rem;
+  }
+}
+#sidebar::after {
   content: "";
   position: absolute;
   right: 0;
@@ -328,24 +364,24 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
   width: 2px;
   background: linear-gradient(180deg, rgba(156, 160, 170, 0.064) 0%, rgba(156, 160, 170, 0.128) 16%, rgba(156, 160, 170, 0.2) 32%, rgba(222, 135, 104, 0.128) 48%, rgba(222, 135, 104, 0.128) 64%, rgba(156, 160, 170, 0.064) 80%);
 }
-.sidebar .sidebar-navlist {
+#sidebar .sidebar-navlist {
   margin-bottom: 4rem;
 }
-.sidebar .sidebar-navlist .navlist-item {
+#sidebar .sidebar-navlist .navlist-item {
   width: fit-content;
 }
-.sidebar .sidebar-navlist .navlist-item::marker {
+#sidebar .sidebar-navlist .navlist-item::marker {
   font-size: 0;
 }
-.sidebar .sidebar-navlist .navlist-item .item-link {
+#sidebar .sidebar-navlist .navlist-item .item-link {
   display: flex;
   align-items: center;
   gap: 0.625rem;
 }
-.sidebar .sidebar-navlist .navlist-item:nth-child(n+2) {
+#sidebar .sidebar-navlist .navlist-item:nth-child(n+2) {
   margin-top: 2rem;
 }
-.sidebar .recent-thread-list {
+#sidebar .recent-thread-list {
   margin-top: 0.75rem;
   /* Not sure why body's max-content column track inline length squishes this. Explicitly give max-content width to the recently viewed subreddit: */
   width: max-content;
@@ -355,13 +391,18 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
   scrollbar-color: hsl(278, 18%, 9%) transparent;
   scrollbar-width: thin;
 }
-.sidebar .recent-thread-list .list__item::marker {
+@media screen and (max-width: 54rem) {
+  #sidebar .recent-thread-list {
+    overflow-y: visible;
+  }
+}
+#sidebar .recent-thread-list .list__item::marker {
   font-size: 0px;
 }
-.sidebar .recent-thread-list .list__item:nth-child(n+2) {
+#sidebar .recent-thread-list .list__item:nth-child(n+2) {
   margin-top: 0.25rem;
 }
-.sidebar .recent-thread-list .item__link {
+#sidebar .recent-thread-list .item__link {
   display: grid;
   /* all auto vs. all 1fr??? hmm.. what is fr based on here? is it auto + any other available space?
   why is there additional space when I use fr? maybe a glitch? */
@@ -372,19 +413,24 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
   border-radius: 0.5rem;
   gap: 0.25rem 0.5rem;
 }
-.sidebar .recent-thread-list .item__link:hover {
+@media screen and (max-width: 54rem) {
+  #sidebar .recent-thread-list .item__link {
+    justify-content: start;
+  }
+}
+#sidebar .recent-thread-list .item__link:hover {
   border-color: hsl(from hsl(220, 7%, 92%) h s calc(l - 32));
 }
-.sidebar .recent-thread-list .item__link .thread__icon {
+#sidebar .recent-thread-list .item__link .thread__icon {
   width: 2rem;
   aspect-ratio: 1/1;
   grid-area: logo;
   align-self: center;
 }
-.sidebar .recent-thread-list .item__link .thread__subreddit {
+#sidebar .recent-thread-list .item__link .thread__subreddit {
   grid-area: subreddit;
 }
-.sidebar .recent-thread-list .item__link .thread__title {
+#sidebar .recent-thread-list .item__link .thread__title {
   grid-area: thread-title;
   font-size: 0.75rem;
 }
@@ -507,11 +553,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > .sidebar {
 @media screen and (max-width: 59rem) {
   .card--thread-options {
     position: static;
-  }
-}
-@media screen and (max-width: 48rem) {
-  .card--thread-options {
-    width: 100%;
   }
 }
 .card--thread-options .credit-cost {

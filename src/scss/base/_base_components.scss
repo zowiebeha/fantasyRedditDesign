@@ -3,11 +3,18 @@
 // Navbar Header
 
 body:has(.nav-list #btn--toggle-sidebar:checked) {
-    > .sidebar {
+    > #sidebar {
         display: block;
-        @starting-style {
-            left: -100%;
-        }
+        
+        animation: .6s ease-in-out animate-sidebar 1 forwards;
+    }
+}
+
+@keyframes animate-sidebar {
+    from {
+        left: -100%;
+    }
+    to {
         left: 0;
     }
 }
@@ -42,14 +49,16 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     @media screen and (max-width: base_variables.$breakpoint-md) {
         grid: 1fr / max-content max-content max-content;
         width: 100%;
-        --search-field-width: 100%;
+        --search-field-width: 24rem;
     }
     
     @media screen and (max-width: base_variables.$breakpoint-sm) {
         grid: "logo logo logo" 1fr
               ". search-field account-info" 1fr
-        / 0px 1fr max-content;
-        gap: 2rem .5rem;
+        / max-content 1fr max-content;
+        gap: 2rem 1rem;
+        
+        --search-field-width: 100%;
         
         .account-info {
             grid-area: account-info;
@@ -59,7 +68,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         }
         .logo {
             grid-area: logo;
-            align-self: center;
             width: 100%;
             text-align: center;
         }
@@ -68,12 +76,27 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
         grid: "logo logo logo" 1fr
               "toggle-sidebar-form search-field account-info" 1fr
-        / max-content max-content max-content;
+        / max-content 1fr max-content;
+        
+        // why does space-between justify-content increase the width of the container?
+        // dive back into grid!! and the spec!! :D
+        
         gap: 2rem .5rem;
     
         #toggle-sidebar-form {
             grid-area: toggle-sidebar-form;
         }
+    }
+    
+    @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+        grid: "logo logo logo logo" 1fr
+              "search-field search-field search-field search-field" 1fr
+              "toggle-sidebar-form toggle-sidebar-form account-info account-info" 1fr
+        / max-content max-content max-content max-content;
+        
+        padding: 1.25rem 1rem;
+        
+        gap: 1rem 1rem;
     }
     
     align-items: center;
@@ -117,6 +140,11 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             @media screen and (max-width: base_variables.$breakpoint-md) {
                 width: 100%;
             }
+            
+            @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+                justify-self: center;
+                width: 82%;
+            }
         }
     }
     
@@ -126,10 +154,13 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         }
     }
 
+    // i could use sr-only style to keep the sidebar in the accessibility tree,
+    // ... then show it for mobile users to save space.
+    
     #btn--toggle-sidebar {
         appearance: none; // override browser styling
         
-        background: base_variables.$white;
+        background: rgb(240 240 240);
         border: 2px solid #C4BBBB;
         box-shadow: 0 1px 0 rgb(156 161 170 / 32%);
         
@@ -145,23 +176,27 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                      / "An icon of three horizontal lines which represent a textured hamburger menu icon.";
             display: block;
             width: 52%;
-            height: fit-content;
+            height: 1.2rem; // magic number to make it look centered. fit-content leaves some space after for some reason (svg scaling/viewport issue).
+            
         }
         &:checked {
             &::after {
                 content: url("../../assets/svg/close-icon.svg")
                      / "A letter X representing a close icon.";
                 width: 64%;
+                height: 1.7rem; // magic number to make it look centered. fit-content leaves some space after for some reason (svg scaling/viewport issue).
             }
-            background: hsl(from base_variables.$white h s calc(l - 12));
+            background: rgb(232 227 227);
         }
         
         transition: .2s background;
         &:hover {
             cursor: pointer;
         }
-        &:not(:checked):hover {
-            background: hsl(from base_variables.$white h s calc(l - 4));
+        
+        @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+            grid-area: toggle-sidebar-form;
+            justify-self: right;
         }
     }
     
@@ -229,6 +264,11 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             display: block;
         }
         
+        @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+            margin-left: 0;
+            justify-self: left;
+        }
+        
         column-gap: 1rem;
         
         /* use percentage margins? or use grid on the nav-list instead of flex w/ percentage inline-length columns ✅ */
@@ -294,7 +334,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
 
 // Sidebar
 
-.sidebar {
+#sidebar {
     height: 100%;
     width: min-content;
     position: relative;
@@ -302,15 +342,23 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     padding-bottom: 0; // not needed since the block elements will just flow along the block axis, and
                        // as the content currently is, it can't shrink any further in block length.
 
+    @media screen and (max-width: base_variables.$breakpoint-sm) {
+        height: fit-content;
+    }
                        
     @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
         display: none;
         
         position: absolute;
         z-index: 1;
-        top: 10.64rem;
+        top: 10.64rem; // size of header box at this screen size
         width: 100%;
+        
         background: base_variables.$white;
+    }
+    
+    @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+        top: 13.5rem; // size of header box at this screen size
     }
     
     // right border
@@ -358,7 +406,11 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         scrollbar-gutter: auto;
         overflow-y: auto;
         scrollbar-color: base_variables.$black transparent;
-        scrollbar-width: thin;
+        scrollbar-width: thin;    
+        
+        @media screen and (max-width: base_variables.$breakpoint-sm) {
+            overflow-y: visible;
+        }
 
         .list__item {
             &::marker {
@@ -377,6 +429,10 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             grid: "logo subreddit" auto
                   "logo thread-title" auto
                   / auto auto;
+                  
+            @media screen and (max-width: base_variables.$breakpoint-sm) {
+                justify-content: start;
+            }
             
             border: 1px solid transparent;
             padding: .5rem;
@@ -536,10 +592,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     
     @media screen and (max-width: base_variables.$breakpoint-sm-l) {
         position: static;
-    }
-    
-    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
-        width: 100%;
     }
     
     .credit-cost {
