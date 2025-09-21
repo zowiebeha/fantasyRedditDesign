@@ -89,13 +89,13 @@ button {
 }
 
 @media screen and (min-width: 66rem) {
-  .no-lg {
+  .no-md {
     display: none;
   }
 }
 
 @media screen and (max-width: 48rem) {
-  .no-sm-sm {
+  .no-xsm {
     display: none;
   }
 }

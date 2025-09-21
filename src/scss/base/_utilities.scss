@@ -1,29 +1,37 @@
 @use "base_variables";
 
+// Screen reader utilities
 .sr-only {
     position: absolute;
     left: -100vw;
 }
 
+// Text utilities
 .text-orange {
     color: base_variables.$color-orange;
 }
 
+// Position utilities
 .pos-relative {
     position: relative;
 }
 
+// Length utilities
 .h-100 {
     height: 100%;
 }
 
-.no-lg {
+// Responsive design utilities
+
+// Hide element on large screen widths that are greater than or equal to `$breakpoint-md`
+.no-md {
     @media screen and (min-width: base_variables.$breakpoint-md) {
         display: none;
     }
 }
 
-.no-sm-sm {
+// Hide element on small screen widths that are smaller than or equal to `$breakpoint-xsm`
+.no-xsm {
     @media screen and (max-width: base_variables.$breakpoint-xsm) {
         display: none;
     }
