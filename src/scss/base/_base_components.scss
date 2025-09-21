@@ -75,7 +75,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     
     @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
         grid: "logo logo logo" 1fr
-              "toggle-sidebar-form search-field account-info" 1fr
+              "toggle-sidebar-form search-field btn--options" 1fr
+              "credits credits credits" 1fr
         / max-content 1fr max-content;
         
         // why does space-between justify-content increase the width of the container?
@@ -91,7 +92,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
         grid: "logo logo logo logo" 1fr
               "search-field search-field search-field search-field" 1fr
-              "toggle-sidebar-form toggle-sidebar-form account-info account-info" 1fr
+              "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr
+              "credits credits credits credits" 1fr
         / max-content max-content max-content max-content;
         
         padding: 1.25rem 1rem;
@@ -149,7 +151,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     }
     
     #toggle-sidebar-form {
-        @media screen and (min-width: base_variables.$breakpoint-sm-sm) {
+        @media screen and (min-width: calc(base_variables.$breakpoint-sm-sm + 1px)) {
             display: none;
         }
     }
@@ -261,11 +263,14 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         grid: "username btn--options" auto "credits btn--options" auto / auto auto;
 
         @media screen and (max-width: base_variables.$breakpoint-md) {
-            display: block;
+            column-gap: 0; // remove gap that the account-info has even though children are absolutely positioned elsewhere
+        }
+        
+        @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+            display: contents; // pretend the div no longer exists so that we can place the children
         }
         
         @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
-            margin-left: 0;
             justify-self: left;
         }
         
@@ -286,6 +291,48 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             @media screen and (max-width: base_variables.$breakpoint-md) {
                 position: absolute;
                 left: -200vw;
+            }
+            
+            @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+                position: static;
+                width: fit-content;
+                justify-self: center;
+                background: linear-gradient(45deg hsl(15.79deg 100% 78.54% / 25%) 0%, rgba(255, 255, 255, 0.144) 100%);
+                position: relative;
+                border-radius: .5rem;
+                left: 0; // reset old value
+                
+                a {    
+                    position: relative;
+                    display: inline-block;
+                    border: 2px solid #f6450082;
+                    color: hsl(15.79deg 100% 54.79% / 95%);
+                    text-align: left;
+                    border-radius: .5rem;
+                    width: fit-content;            
+                    font-size: 1.5rem;
+                    padding: 0.25em 8.25rem .25rem 1em;
+                    
+                    &:hover {
+                        /* hide underline-hover effect */
+                        &::after {
+                            display: none;
+                        }
+                    }
+                    
+                    // use ::before to avoid underline-hover collisions
+                    &::before {
+                        content: "[ $5.99 USD ]" / "credits are equal to $5.99 USD";
+                        position: absolute;
+                        width: fit-content;
+                        right: 1rem;
+                        top: 55%; // visual center
+                        transform: translateY(-50%);
+                        font-size: 1rem;
+                    }
+                }
+                
+                box-shadow: 0 .15em 2px rgba(0, 0, 0, 0.075);
             }
         
             grid-area: credits;
@@ -328,6 +375,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                 outline: 2px solid base_variables.$white;
             }
 
+            @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+                justify-self: left;
+            }
         }
     }
 }
@@ -339,8 +389,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     width: min-content;
     position: relative;
     padding: 4rem;
-    padding-bottom: 0; // not needed since the block elements will just flow along the block axis, and
-                       // as the content currently is, it can't shrink any further in block length.
+    padding-bottom: 2rem;
 
     @media screen and (max-width: base_variables.$breakpoint-sm) {
         height: fit-content;
@@ -351,14 +400,14 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         
         position: absolute;
         z-index: 1;
-        top: 10.64rem; // size of header box at this screen size
+        top: 15.5rem; // size of header box at this screen size
         width: 100%;
         
         background: base_variables.$white;
     }
     
     @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
-        top: 13.5rem; // size of header box at this screen size
+        top: 17.5rem; // size of header box at this screen size
     }
     
     // right border

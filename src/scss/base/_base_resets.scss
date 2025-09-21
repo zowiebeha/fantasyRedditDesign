@@ -39,6 +39,15 @@ body {
     > main {
         grid-area: main;
     }
+    
+    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+        // not necessary since tracks with an absolute child will have no length/width,
+        // ... but this makes it explicitly clear
+        grid:
+            "header header" auto
+            "main main" 1fr
+            / max-content 1fr;
+    }
 }
 
 html {

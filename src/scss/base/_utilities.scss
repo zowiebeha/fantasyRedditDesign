@@ -22,3 +22,9 @@
         display: none;
     }
 }
+
+.no-sm-sm {
+    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+        display: none;
+    }
+}

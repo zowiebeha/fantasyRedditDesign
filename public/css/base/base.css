@@ -28,6 +28,11 @@ body > aside {
 body > main {
   grid-area: main;
 }
+@media screen and (max-width: 48rem) {
+  body {
+    grid: "header header" auto "main main" 1fr/max-content 1fr;
+  }
+}
 
 html {
   scrollbar-color: hsl(from hsl(16, 99%, 46%) h s calc(l - 32)) transparent;
@@ -89,6 +94,12 @@ button {
   }
 }
 
+@media screen and (max-width: 48rem) {
+  .no-sm-sm {
+    display: none;
+  }
+}
+
 body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   display: block;
   animation: 0.6s ease-in-out animate-sidebar 1 forwards;
@@ -140,7 +151,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 48rem) {
   .nav-list {
-    grid: "logo logo logo" 1fr "toggle-sidebar-form search-field account-info" 1fr/max-content 1fr max-content;
+    grid: "logo logo logo" 1fr "toggle-sidebar-form search-field btn--options" 1fr "credits credits credits" 1fr/max-content 1fr max-content;
     gap: 2rem 0.5rem;
   }
   .nav-list #toggle-sidebar-form {
@@ -149,7 +160,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 32rem) {
   .nav-list {
-    grid: "logo logo logo logo" 1fr "search-field search-field search-field search-field" 1fr "toggle-sidebar-form toggle-sidebar-form account-info account-info" 1fr/max-content max-content max-content max-content;
+    grid: "logo logo logo logo" 1fr "search-field search-field search-field search-field" 1fr "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr "credits credits credits credits" 1fr/max-content max-content max-content max-content;
     padding: 1.25rem 1rem;
     gap: 1rem 1rem;
   }
@@ -186,7 +197,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     width: 82%;
   }
 }
-@media screen and (min-width: 48rem) {
+@media screen and (min-width: calc(48rem + 1px)) {
   .nav-list #toggle-sidebar-form {
     display: none;
   }
@@ -273,12 +284,16 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 66rem) {
   .nav-list .account-info {
-    display: block;
+    column-gap: 0;
+  }
+}
+@media screen and (max-width: 48rem) {
+  .nav-list .account-info {
+    display: contents;
   }
 }
 @media screen and (max-width: 32rem) {
   .nav-list .account-info {
-    margin-left: 0;
     justify-self: left;
   }
 }
@@ -299,6 +314,44 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   .nav-list .account-info .credits {
     position: absolute;
     left: -200vw;
+  }
+}
+@media screen and (max-width: 48rem) {
+  .nav-list .account-info .credits {
+    position: static;
+    width: fit-content;
+    justify-self: center;
+    background: linear-gradient(45deg hsla(15.79, 100%, 78.54%, 0.25) 0%, rgba(255, 255, 255, 0.144) 100%);
+    position: relative;
+    border-radius: 0.5rem;
+    left: 0;
+    box-shadow: 0 0.15em 2px rgba(0, 0, 0, 0.075);
+  }
+  .nav-list .account-info .credits a {
+    position: relative;
+    display: inline-block;
+    border: 2px solid rgba(246, 69, 0, 0.5098039216);
+    color: hsla(15.79, 100%, 54.79%, 0.95);
+    text-align: left;
+    border-radius: 0.5rem;
+    width: fit-content;
+    font-size: 1.5rem;
+    padding: 0.25em 8.25rem 0.25rem 1em;
+  }
+  .nav-list .account-info .credits a:hover {
+    /* hide underline-hover effect */
+  }
+  .nav-list .account-info .credits a:hover::after {
+    display: none;
+  }
+  .nav-list .account-info .credits a::before {
+    content: "[ $5.99 USD ]"/"credits are equal to $5.99 USD";
+    position: absolute;
+    width: fit-content;
+    right: 1rem;
+    top: 55%;
+    transform: translateY(-50%);
+    font-size: 1rem;
   }
 }
 .nav-list .account-info .btn--options {
@@ -330,13 +383,18 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   background: rgb(from hsl(278, 18%, 9%) r g b/98%);
   outline: 2px solid hsl(220, 7%, 92%);
 }
+@media screen and (max-width: 48rem) {
+  .nav-list .account-info .btn--options {
+    justify-self: left;
+  }
+}
 
 #sidebar {
   height: 100%;
   width: min-content;
   position: relative;
   padding: 4rem;
-  padding-bottom: 0;
+  padding-bottom: 2rem;
 }
 @media screen and (max-width: 54rem) {
   #sidebar {
@@ -348,14 +406,14 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     display: none;
     position: absolute;
     z-index: 1;
-    top: 10.64rem;
+    top: 15.5rem;
     width: 100%;
     background: hsl(220, 7%, 92%);
   }
 }
 @media screen and (max-width: 32rem) {
   #sidebar {
-    top: 13.5rem;
+    top: 17.5rem;
   }
 }
 #sidebar::after {
