@@ -308,7 +308,16 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   }
 }
 .nav-list .account-info .credits {
+  position: relative;
   grid-area: credits;
+}
+.nav-list .account-info .credits .usd-amount {
+  position: absolute;
+  top: 1.25rem;
+  left: 0;
+  font-size: 0.75rem;
+  width: fit-content;
+  color: hsla(16, 99%, 46%, 0.914);
 }
 @media screen and (max-width: 66rem) {
   .nav-list .account-info .credits {
@@ -360,7 +369,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   place-self: center;
   grid-area: btn--options;
   background: hsl(278, 18%, 9%);
-  border-radius: 16px;
+  border-radius: 1rem;
   padding: 0.875rem;
   /* Hide browser default tooltip when an svg element with <title> is hovered over */
   /* Warning: disables event emission for the svg */

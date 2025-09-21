@@ -6,7 +6,7 @@
 }
 
 .text-orange {
-    color: base_variables.$orange;
+    color: base_variables.$color-orange;
 }
 
 .pos-relative {
@@ -24,7 +24,7 @@
 }
 
 .no-sm-sm {
-    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+    @media screen and (max-width: base_variables.$breakpoint-xsm) {
         display: none;
     }
 }

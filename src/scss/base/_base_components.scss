@@ -73,7 +73,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         }
     }
     
-    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+    @media screen and (max-width: base_variables.$breakpoint-xsm) {
         grid: "logo logo logo" 1fr
               "toggle-sidebar-form search-field btn--options" 1fr
               "credits credits credits" 1fr
@@ -89,7 +89,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         }
     }
     
-    @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+    @media screen and (max-width: base_variables.$breakpoint-xxsm) {
         grid: "logo logo logo logo" 1fr
               "search-field search-field search-field search-field" 1fr
               "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr
@@ -143,7 +143,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                 width: 100%;
             }
             
-            @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+            @media screen and (max-width: base_variables.$breakpoint-xxsm) {
                 justify-self: center;
                 width: 82%;
             }
@@ -151,7 +151,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     }
     
     #toggle-sidebar-form {
-        @media screen and (min-width: calc(base_variables.$breakpoint-sm-sm + 1px)) {
+        @media screen and (min-width: calc(base_variables.$breakpoint-xsm + 1px)) {
             display: none;
         }
     }
@@ -196,7 +196,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             cursor: pointer;
         }
         
-        @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+        @media screen and (max-width: base_variables.$breakpoint-xxsm) {
             grid-area: toggle-sidebar-form;
             justify-self: right;
         }
@@ -217,7 +217,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                 transform: translate(1rem, -50%); // translate 50% of width up such that the icon is positioned relative to the center of itself by 50% from the top of the pos-relative div
 
                 path {
-                    fill: base_variables.$oranger;
+                    fill: base_variables.$color-orange-light;
                 }
             }
 
@@ -227,7 +227,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                 width: var(--search-field-width);
                 border-radius: 1rem;
                 // user text
-                color: base_variables.$oranger;
+                color: base_variables.$color-orange-light;
 
                 border: 1px solid rgba(163, 44, 1, 0.24);
                 background: linear-gradient(180deg, rgb(239 217 210 / 0.72) 0%, rgb(234 205 195 / 0.72) 100%);
@@ -237,20 +237,20 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                 padding-left: 3.6875rem; // hold space for the icon
 
                 &::placeholder {
-                    color: base_variables.$oranger;
+                    color: base_variables.$color-orange-light;
                 }
 
                 transition: .2s box-shadow, .4s border-color;
 
                 &:focus {
-                    border-color: hsl(from base_variables.$orange h s calc(l + 32));
+                    border-color: hsl(from base_variables.$color-orange h s calc(l + 32));
                     outline: none; // override browser default
                     box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24),
                                 0 0 0 2px rgba(218, 151, 135, 0.24);
                 }
                 
                 &:hover {
-                    border-color: hsl(from base_variables.$orange h s calc(l + 32));
+                    border-color: hsl(from base_variables.$color-orange h s calc(l + 32));
                 }
             }
         }
@@ -266,11 +266,11 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             column-gap: 0; // remove gap that the account-info has even though children are absolutely positioned elsewhere
         }
         
-        @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+        @media screen and (max-width: base_variables.$breakpoint-xsm) {
             display: contents; // pretend the div no longer exists so that we can place the children
         }
         
-        @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+        @media screen and (max-width: base_variables.$breakpoint-xxsm) {
             justify-self: left;
         }
         
@@ -288,12 +288,21 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         }
 
         .credits {
+            position: relative;
+            .usd-amount {
+                position: absolute;
+                top: 1.25rem;
+                left: 0;
+                font-size: .75rem;
+                width: fit-content;
+                color: hsla(16, 99%, 46%, 0.914);
+            }
             @media screen and (max-width: base_variables.$breakpoint-md) {
                 position: absolute;
                 left: -200vw;
             }
             
-            @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+            @media screen and (max-width: base_variables.$breakpoint-xsm) {
                 position: static;
                 width: fit-content;
                 justify-self: center;
@@ -347,8 +356,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             place-self: center;
 
             grid-area: btn--options;
-            background: base_variables.$black;
-            border-radius: base_variables.$border-radius-med;
+            background: base_variables.$color-black;
+            border-radius: 1rem;
             padding: 0.875rem;
 
             /* Hide browser default tooltip when an svg element with <title> is hovered over */
@@ -357,12 +366,12 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                 pointer-events: none;
                 width: 100%;
                 height: 100%;
-                fill: base_variables.$white;
+                fill: base_variables.$color-white;
                 /* remove whitespace underneath replaced element */
                 vertical-align: bottom;
 
                 path {
-                    fill: base_variables.$white;
+                    fill: base_variables.$color-white;
                 }
             }
 
@@ -371,11 +380,11 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             outline-offset: -4px;
             
             &:hover {
-                background: rgb(from base_variables.$black r g b / 98%);
-                outline: 2px solid base_variables.$white;
+                background: rgb(from base_variables.$color-black r g b / 98%);
+                outline: 2px solid base_variables.$color-white;
             }
 
-            @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+            @media screen and (max-width: base_variables.$breakpoint-xsm) {
                 justify-self: left;
             }
         }
@@ -395,7 +404,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         height: fit-content;
     }
                        
-    @media screen and (max-width: base_variables.$breakpoint-sm-sm) {
+    @media screen and (max-width: base_variables.$breakpoint-xsm) {
         display: none;
         
         position: absolute;
@@ -403,10 +412,10 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         top: 15.5rem; // size of header box at this screen size
         width: 100%;
         
-        background: base_variables.$white;
+        background: base_variables.$color-white;
     }
     
-    @media screen and (max-width: base_variables.$breakpoint-sm-sm-sm) {
+    @media screen and (max-width: base_variables.$breakpoint-xxsm) {
         top: 17.5rem; // size of header box at this screen size
     }
     
@@ -454,7 +463,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         
         scrollbar-gutter: auto;
         overflow-y: auto;
-        scrollbar-color: base_variables.$black transparent;
+        scrollbar-color: base_variables.$color-black transparent;
         scrollbar-width: thin;    
         
         @media screen and (max-width: base_variables.$breakpoint-sm) {
@@ -491,7 +500,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             gap: .25rem .5rem;
             
             &:hover {
-                border-color: hsl(from base_variables.$white h s calc(l - 32));
+                border-color: hsl(from base_variables.$color-white h s calc(l - 32));
             }
 
             .thread__icon {
@@ -526,7 +535,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         position: relative;
     }
     
-    @media screen and (max-width: base_variables.$breakpoint-sm-l) {
+    @media screen and (max-width: base_variables.$breakpoint-md-sm) {
         align-items: center;
     }
 }
@@ -640,7 +649,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         bottom: -8.5rem;
     }
     
-    @media screen and (max-width: base_variables.$breakpoint-sm-l) {
+    @media screen and (max-width: base_variables.$breakpoint-md-sm) {
         position: static;
     }
     
@@ -701,14 +710,14 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         grid-area: btn-buy;
 
         color: #ECEDEE;
-        background: base_variables.$orange;
+        background: base_variables.$color-orange;
         
         border-radius: 1rem;
         padding: .5rem 2.5rem;
         
         transition: .2s background-color;
         &:hover {
-            background: hsl(from base_variables.$orange h s calc(l - 4));
+            background: hsl(from base_variables.$color-orange h s calc(l - 4));
         }
     }
     
@@ -743,7 +752,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         left: 0;
         content: "";
         height: 2px;
-        background: base_variables.$black;
+        background: base_variables.$color-black;
         width: 0;
         transition: .2s width ease-out, .2s height ease-out;
     }
@@ -765,7 +774,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         left: 0;
         content: "";
         height: 2px;
-        background: base_variables.$black;
+        background: base_variables.$color-black;
         width: 0;
         transition: .2s width ease-out, .2s height ease-out;
     }
@@ -778,6 +787,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
 
 .underline-hover--orange {
     &::after {
-        background: base_variables.$orange;
+        background: base_variables.$color-orange;
     }
 }
