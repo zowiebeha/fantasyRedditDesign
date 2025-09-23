@@ -24,14 +24,14 @@
 // Responsive design utilities
 
 // Hide element on large screen widths that are greater than or equal to `$breakpoint-md`
-.no-md {
+.no-md-gte {
     @media screen and (min-width: base_variables.$breakpoint-md) {
         display: none;
     }
 }
 
 // Hide element on small screen widths that are smaller than or equal to `$breakpoint-xsm`
-.no-xsm {
+.no-xsm-lte {
     @media screen and (max-width: base_variables.$breakpoint-xsm) {
         display: none;
     }

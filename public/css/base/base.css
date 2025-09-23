@@ -87,13 +87,13 @@ button {
 }
 
 @media screen and (min-width: 66rem) {
-  .no-md {
+  .no-md-gte {
     display: none;
   }
 }
 
 @media screen and (max-width: 48rem) {
-  .no-xsm {
+  .no-xsm-lte {
     display: none;
   }
 }

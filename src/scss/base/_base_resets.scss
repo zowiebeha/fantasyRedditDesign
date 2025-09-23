@@ -70,6 +70,7 @@ html {
 
 main {
     height: 100%; // inherit <body>'s height
+    // [?] Unknown answer: I don't fully understand the relationship between a parent/child's overflow properties.
     overflow: hidden; // Hide content that overflows the y axis in favor of a scrollbar shown by .scrollable-container
 }
 
