@@ -1,7 +1,13 @@
 @use "base_variables";
 
-// Navbar Header
+/*===
+Navbar Header
+==== */
 
+// We have this complex selector since we need to check if the hamburger menu toggle button (a checkbox <input>)
+//  ... has been checked by the user. Then we need to display the sidebar if toggled.
+// These have a common ancestor of the <body>, so to access both we must structure it like so,
+//  ... as we can't traverse upwards from a node in CSS.
 body:has(.nav-list #btn--toggle-sidebar:checked) {
     > #sidebar {
         display: block;
@@ -10,6 +16,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     }
 }
 
+// Le Animation
 @keyframes animate-sidebar {
     from {
         left: -100%;
@@ -19,43 +26,88 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     }
 }
 
+// Navbar's <ul> of <li>s:
 .nav-list {
     padding: 1.25rem 4rem;
+    // Act as the container for absolutely positioned ::before and ::after fake linear-gradient borders
     position: relative;
-
-    // grid will allow us to use percentages of the viewport width instead of percentages of the vw unit.
-    // percentages will mitigate the fixed margin issue.
-    // it will also prevent a horizontal scrollbar from appearing?????
-    // more so about fixed element size overflow than track size but ....   
-    // good thoughts so far!
-
-    // the use of vw for element margin in with a flex layout
-    // ... will come back to bite us if a vertical scrollbar appears,
-    // .. and if the viewport is too small to support the margin + other elements.
-    // it will alter the layout from what the design displays, since a horizontal scrollbar may appear.
-    // the margin isn't based on a percentage of the nav-list, it's based on a percentage of the viewport.
-    // as the viewport shrinks, the margin will increase.
-    // We can't use margin percentages of the navbar to take advantage of the inheritance heirarchy,
-    //  ... as a percentage width here will calculate based on the <li> parent.
-    // Thus, grid is the best option here. We can account for the field width + its percentage gap. Win win.
-    // Plus, flexbox is a bit viral given its single directionality.
 
     --search-field-width: 28rem;
 
     display: grid;
+    align-items: center; // block direction item alignment within its grid area if there is free space
+    justify-items: right; // inline direction item alignment within its grid area if there is free space
+    // Logo,    search-field,    account-info
     grid: 1fr / max-content max-content max-content;
-    justify-content: space-between;
+    justify-content: space-between;  // inline direction container free space distribution among tracks
     
-    @media screen and (max-width: base_variables.$breakpoint-md) {
-        grid: 1fr / max-content max-content max-content;
+    // Fake borders with position absolute and psuedo-elements. We can't use two different gradients
+    // ... for a border-image, but this trick works.
+    &::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        // [?] Unknown: research more into this:
+        // I guess by default, absolute elements account for relative parent's padding
+        left: 0;
+
+        height: 2px;
         width: 100%;
+
+        background: linear-gradient(#E9EAEC 0%, rgb(189 192 198 / 64%) 8%, rgb(189 192 198 / 64%) 92%, #E9EAEC 100%);
+    }
+    &::after {
+        content: "";
+
+        position: absolute;
+        bottom: 0;
+        // [?] Unknown: research more into this:
+        // I guess by default, absolute elements account for relative parent's padding
+        left: 0;
+
+        height: 2px;
+        width: 100%; // I guess the default width: auto; does not provide width to psuedo elements.
+        // todo: read into width: auto; for psuedo elements
+
+        background: linear-gradient(90deg, rgb(156 160 170 / 0.2) 0%, rgb(156 160 170 / 0.2) 12%, rgb(222 135 104 / 0.1) 13.82%, rgb(222 135 104 / 0.1) 22.2%, rgb(156 160 170 / 0.2) 24%, rgb(156 160 170 / 0.2) 31%, rgb(222 135 104 / 0.1) 33.14%, rgb(222 135 104 / 0.1) 66.12%, rgb(156 160 170 / 0.2) 68%, rgb(156 160 170 / 0.2) 71.33%, rgb(222 135 104 / 0.1) 73.11%, rgb(222 135 104 / 0.1) 86.84%, rgb(156 160 170 / 0.2) 89%);
+    }
+    
+    // .nav-item {
+        // Hide list item marker. Since the .nav-item (<li>) is a descendant of .nav-list (<ul>),
+        // ... this makes no difference to a11y when compared to list-style: none;
+        // [?] Unknown: read more about this and when we would ever want this:
+        // &::marker {
+        //     font-size: 0px;
+        // }
+    // }
+    
+    // .search <li>
+    .nav-item.search {
+            // LTE medium screen size
+            @media screen and (max-width: base_variables.$breakpoint-md) {
+                width: 100%;
+            }
+            
+            // LTE extra extra small screen size
+            @media screen and (max-width: base_variables.$breakpoint-xxsm) {
+                // Grid items stretch along the block axis of their grid area by default. Override this:
+                justify-self: center;
+                width: 82%;
+            }
+    }
+    
+    // LTE medium screen size
+    @media screen and (max-width: base_variables.$breakpoint-md) {
         --search-field-width: 24rem;
     }
     
+    // LTE small screen size
     @media screen and (max-width: base_variables.$breakpoint-sm) {
+        // [?] Unknown: how do ignored grid area names (.) work in greater depth, according to practice and their specification definition?
         grid: "logo logo logo" 1fr
               ". search-field account-info" 1fr
-        / max-content 1fr max-content;
+        / max-content 1fr max-content; // why does (.) do nothing?
         gap: 2rem 1rem;
         
         --search-field-width: 100%;
@@ -101,54 +153,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         gap: 1rem 1rem;
     }
     
-    align-items: center;
-    justify-items: right;
-
-    /* fake borders so we can give them different linear gradients */
-    &::before {
-        content: "";
-
-        position: absolute;
-        top: 0;
-        left: 0; // I guess by default, absolute elements account for relative parent's padding
-
-        height: 2px;
-        width: 100%;
-
-        background: linear-gradient(#E9EAEC 0%, rgb(189 192 198 / 64%) 8%, rgb(189 192 198 / 64%) 92%, #E9EAEC 100%);
-    }
-
-    &::after {
-        content: "";
-
-        position: absolute;
-        bottom: 0;
-        left: 0; // I guess by default, absolute elements account for relative parent's padding
-        // todo: read into default left value.
-
-        height: 2px;
-        width: 100%; // I guess the default width: auto; does not provide width to psuedo elements.
-        // todo: read into width: auto; for psuedo elements
-
-        background: linear-gradient(90deg, rgb(156 160 170 / 0.2) 0%, rgb(156 160 170 / 0.2) 12%, rgb(222 135 104 / 0.1) 13.82%, rgb(222 135 104 / 0.1) 22.2%, rgb(156 160 170 / 0.2) 24%, rgb(156 160 170 / 0.2) 31%, rgb(222 135 104 / 0.1) 33.14%, rgb(222 135 104 / 0.1) 66.12%, rgb(156 160 170 / 0.2) 68%, rgb(156 160 170 / 0.2) 71.33%, rgb(222 135 104 / 0.1) 73.11%, rgb(222 135 104 / 0.1) 86.84%, rgb(156 160 170 / 0.2) 89%);
-    }
-
-    .nav-item {
-        &::marker {
-            font-size: 0px;
-        }
-        
-        &.search {
-            @media screen and (max-width: base_variables.$breakpoint-md) {
-                width: 100%;
-            }
-            
-            @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-                justify-self: center;
-                width: 82%;
-            }
-        }
-    }
+////////////////
+    /// STOP - SEGMENT 1 ////
+ ////////////////
     
     #toggle-sidebar-form {
         @media screen and (min-width: calc(base_variables.$breakpoint-xsm + 1px)) {
@@ -391,7 +398,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     }
 }
 
-// Sidebar
+/*===
+Sidebar
+==== */
 
 #sidebar {
     height: 100%;
@@ -522,7 +531,11 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     }
 }
 
-// Cards
+/*===
+Main components shared by many pages
+==== */
+
+// Card & card container (.card-list)
 
 .card-list {
     display: flex;
@@ -736,57 +749,5 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         &:hover {
             background: hsl(from var(--bg-color) h s calc(l - 4));
         }
-    }
-}
-
-.underline-hover-no-svg {
-    > *:not(svg) {
-        position: relative;
-    }
-    
-    > *:not(svg)::after {
-        z-index: -1;
-        position: absolute;
-        bottom: .1em;
-        border-radius: .5rem;
-        left: 0;
-        content: "";
-        height: 2px;
-        background: base_variables.$color-black;
-        width: 0;
-        transition: .2s width ease-out, .2s height ease-out;
-    }
-    
-    &:hover {
-        > *:not(svg)::after {
-            width: 100%;
-        }
-    }
-}
-
-.underline-hover {
-    position: relative;
-    &::after {
-        z-index: -1;
-        position: absolute;
-        bottom: .1em;
-        border-radius: .5rem;
-        left: 0;
-        content: "";
-        height: 2px;
-        background: base_variables.$color-black;
-        width: 0;
-        transition: .2s width ease-out, .2s height ease-out;
-    }
-    &:hover {
-        &::after {
-            width: 100%;
-        }
-    }
-}
-
-.underline-hover--orange {
-    &::after {
-        background: base_variables.$color-orange;
     }
 }

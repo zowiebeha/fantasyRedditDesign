@@ -11,6 +11,59 @@
     color: base_variables.$color-orange;
 }
 
+// to review:
+.underline-hover-no-svg {
+    > *:not(svg) {
+        position: relative;
+    }
+    
+    > *:not(svg)::after {
+        z-index: -1;
+        position: absolute;
+        bottom: .1em;
+        border-radius: .5rem;
+        left: 0;
+        content: "";
+        height: 2px;
+        background: base_variables.$color-black;
+        width: 0;
+        transition: .2s width ease-out, .2s height ease-out;
+    }
+    
+    &:hover {
+        > *:not(svg)::after {
+            width: 100%;
+        }
+    }
+}
+
+.underline-hover {
+    position: relative;
+    &::after {
+        z-index: -1;
+        position: absolute;
+        bottom: .1em;
+        border-radius: .5rem;
+        left: 0;
+        content: "";
+        height: 2px;
+        background: base_variables.$color-black;
+        width: 0;
+        transition: .2s width ease-out, .2s height ease-out;
+    }
+    &:hover {
+        &::after {
+            width: 100%;
+        }
+    }
+}
+
+.underline-hover--orange {
+    &::after {
+        background: base_variables.$color-orange;
+    }
+}
+
 // Position utilities
 .pos-relative {
     position: relative;

@@ -78,6 +78,48 @@ button {
   color: hsl(16, 99%, 46%);
 }
 
+.underline-hover-no-svg > *:not(svg) {
+  position: relative;
+}
+.underline-hover-no-svg > *:not(svg)::after {
+  z-index: -1;
+  position: absolute;
+  bottom: 0.1em;
+  border-radius: 0.5rem;
+  left: 0;
+  content: "";
+  height: 2px;
+  background: hsl(278, 18%, 9%);
+  width: 0;
+  transition: 0.2s width ease-out, 0.2s height ease-out;
+}
+.underline-hover-no-svg:hover > *:not(svg)::after {
+  width: 100%;
+}
+
+.underline-hover {
+  position: relative;
+}
+.underline-hover::after {
+  z-index: -1;
+  position: absolute;
+  bottom: 0.1em;
+  border-radius: 0.5rem;
+  left: 0;
+  content: "";
+  height: 2px;
+  background: hsl(278, 18%, 9%);
+  width: 0;
+  transition: 0.2s width ease-out, 0.2s height ease-out;
+}
+.underline-hover:hover::after {
+  width: 100%;
+}
+
+.underline-hover--orange::after {
+  background: hsl(16, 99%, 46%);
+}
+
 .pos-relative {
   position: relative;
 }
@@ -98,6 +140,9 @@ button {
   }
 }
 
+/*===
+Navbar Header
+==== */
 body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   display: block;
   animation: 0.6s ease-in-out animate-sidebar 1 forwards;
@@ -116,16 +161,42 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   position: relative;
   --search-field-width: 28rem;
   display: grid;
-  grid: 1fr/max-content max-content max-content;
-  justify-content: space-between;
   align-items: center;
   justify-items: right;
-  /* fake borders so we can give them different linear gradients */
+  grid: 1fr/max-content max-content max-content;
+  justify-content: space-between;
+}
+.nav-list::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(#E9EAEC 0%, rgba(189, 192, 198, 0.64) 8%, rgba(189, 192, 198, 0.64) 92%, #E9EAEC 100%);
+}
+.nav-list::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(156, 160, 170, 0.2) 0%, rgba(156, 160, 170, 0.2) 12%, rgba(222, 135, 104, 0.1) 13.82%, rgba(222, 135, 104, 0.1) 22.2%, rgba(156, 160, 170, 0.2) 24%, rgba(156, 160, 170, 0.2) 31%, rgba(222, 135, 104, 0.1) 33.14%, rgba(222, 135, 104, 0.1) 66.12%, rgba(156, 160, 170, 0.2) 68%, rgba(156, 160, 170, 0.2) 71.33%, rgba(222, 135, 104, 0.1) 73.11%, rgba(222, 135, 104, 0.1) 86.84%, rgba(156, 160, 170, 0.2) 89%);
+}
+@media screen and (max-width: 66rem) {
+  .nav-list .nav-item.search {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 32rem) {
+  .nav-list .nav-item.search {
+    justify-self: center;
+    width: 82%;
+  }
 }
 @media screen and (max-width: 66rem) {
   .nav-list {
-    grid: 1fr/max-content max-content max-content;
-    width: 100%;
     --search-field-width: 24rem;
   }
 }
@@ -161,38 +232,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     grid: "logo logo logo logo" 1fr "search-field search-field search-field search-field" 1fr "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr "credits credits credits credits" 1fr/max-content max-content max-content max-content;
     padding: 1.25rem 1rem;
     gap: 1rem 1rem;
-  }
-}
-.nav-list::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background: linear-gradient(#E9EAEC 0%, rgba(189, 192, 198, 0.64) 8%, rgba(189, 192, 198, 0.64) 92%, #E9EAEC 100%);
-}
-.nav-list::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background: linear-gradient(90deg, rgba(156, 160, 170, 0.2) 0%, rgba(156, 160, 170, 0.2) 12%, rgba(222, 135, 104, 0.1) 13.82%, rgba(222, 135, 104, 0.1) 22.2%, rgba(156, 160, 170, 0.2) 24%, rgba(156, 160, 170, 0.2) 31%, rgba(222, 135, 104, 0.1) 33.14%, rgba(222, 135, 104, 0.1) 66.12%, rgba(156, 160, 170, 0.2) 68%, rgba(156, 160, 170, 0.2) 71.33%, rgba(222, 135, 104, 0.1) 73.11%, rgba(222, 135, 104, 0.1) 86.84%, rgba(156, 160, 170, 0.2) 89%);
-}
-.nav-list .nav-item::marker {
-  font-size: 0px;
-}
-@media screen and (max-width: 66rem) {
-  .nav-list .nav-item.search {
-    width: 100%;
-  }
-}
-@media screen and (max-width: 32rem) {
-  .nav-list .nav-item.search {
-    justify-self: center;
-    width: 82%;
   }
 }
 @media screen and (min-width: calc(48rem + 1px)) {
@@ -396,6 +435,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   }
 }
 
+/*===
+Sidebar
+==== */
 #sidebar {
   height: 100%;
   width: min-content;
@@ -503,6 +545,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   font-size: 0.75rem;
 }
 
+/*===
+Main components shared by many pages
+==== */
 .card-list {
   display: flex;
   align-items: flex-end;
@@ -690,48 +735,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 .card--thread-options .btn--sell:hover {
   background: hsl(from var(--bg-color) h s calc(l - 4));
-}
-
-.underline-hover-no-svg > *:not(svg) {
-  position: relative;
-}
-.underline-hover-no-svg > *:not(svg)::after {
-  z-index: -1;
-  position: absolute;
-  bottom: 0.1em;
-  border-radius: 0.5rem;
-  left: 0;
-  content: "";
-  height: 2px;
-  background: hsl(278, 18%, 9%);
-  width: 0;
-  transition: 0.2s width ease-out, 0.2s height ease-out;
-}
-.underline-hover-no-svg:hover > *:not(svg)::after {
-  width: 100%;
-}
-
-.underline-hover {
-  position: relative;
-}
-.underline-hover::after {
-  z-index: -1;
-  position: absolute;
-  bottom: 0.1em;
-  border-radius: 0.5rem;
-  left: 0;
-  content: "";
-  height: 2px;
-  background: hsl(278, 18%, 9%);
-  width: 0;
-  transition: 0.2s width ease-out, 0.2s height ease-out;
-}
-.underline-hover:hover::after {
-  width: 100%;
-}
-
-.underline-hover--orange::after {
-  background: hsl(16, 99%, 46%);
 }
 
 /*# sourceMappingURL=base.css.map */
