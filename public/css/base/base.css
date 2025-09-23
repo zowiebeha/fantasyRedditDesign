@@ -187,12 +187,12 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   list-style: none;
 }
 @media screen and (max-width: 66rem) {
-  .nav-list .nav-item.search {
+  .nav-list .nav-item.search-item {
     width: 100%;
   }
 }
 @media screen and (max-width: 32rem) {
-  .nav-list .nav-item.search {
+  .nav-list .nav-item.search-item {
     justify-self: center;
     width: 82%;
   }
@@ -204,25 +204,24 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 54rem) {
   .nav-list {
-    grid: "logo logo logo" 1fr ". search-field account-info" 1fr/max-content 1fr max-content;
+    grid: "logo-item logo-item logo-item" 1fr ". search-item account-info-item" 1fr/max-content 1fr max-content;
     gap: 2rem 1rem;
     --search-field-width: 100%;
   }
-  .nav-list .account-info {
-    grid-area: account-info;
+  .nav-list .account-info-item {
+    grid-area: account-info-item;
   }
-  .nav-list .search {
-    grid-area: search-field;
+  .nav-list .search-item {
+    grid-area: search-item;
   }
-  .nav-list .logo {
-    grid-area: logo;
-    width: 100%;
+  .nav-list .logo-item {
+    grid-area: logo-item;
     text-align: center;
   }
 }
 @media screen and (max-width: 48rem) {
   .nav-list {
-    grid: "logo logo logo" 1fr "toggle-sidebar-form search-field btn--options" 1fr "credits credits credits" 1fr/max-content 1fr max-content;
+    grid: "logo-item logo-item logo-item" 1fr "toggle-sidebar-form search-field btn--options" 1fr "credits credits credits" 1fr/max-content 1fr max-content;
     gap: 2rem 0.5rem;
   }
   .nav-list #toggle-sidebar-form {
@@ -231,7 +230,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 32rem) {
   .nav-list {
-    grid: "logo logo logo logo" 1fr "search-field search-field search-field search-field" 1fr "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr "credits credits credits credits" 1fr/max-content max-content max-content max-content;
+    grid: "logo-item logo-item logo-item logo-item" 1fr "search-field search-field search-field search-field" 1fr "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr "credits credits credits credits" 1fr/max-content max-content max-content max-content;
     padding: 1.25rem 1rem;
     gap: 1rem 1rem;
   }
@@ -314,7 +313,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 .nav-list #search-form .icon-field-wrapper #search-field:hover {
   border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
 }
-.nav-list .account-info {
+.nav-list .account-info-item {
   margin-left: auto;
   display: grid;
   grid: "username btn--options" auto "credits btn--options" auto/auto auto;
@@ -322,35 +321,35 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   /* use percentage margins? or use grid on the nav-list instead of flex w/ percentage inline-length columns ✅ */
 }
 @media screen and (max-width: 66rem) {
-  .nav-list .account-info {
+  .nav-list .account-info-item {
     column-gap: 0;
   }
 }
 @media screen and (max-width: 48rem) {
-  .nav-list .account-info {
+  .nav-list .account-info-item {
     display: contents;
   }
 }
 @media screen and (max-width: 32rem) {
-  .nav-list .account-info {
+  .nav-list .account-info-item {
     justify-self: left;
   }
 }
-.nav-list .account-info .username {
+.nav-list .account-info-item .username {
   grid-area: username;
   align-self: end;
 }
 @media screen and (max-width: 66rem) {
-  .nav-list .account-info .username {
+  .nav-list .account-info-item .username {
     position: absolute;
     left: -200vw;
   }
 }
-.nav-list .account-info .credits {
+.nav-list .account-info-item .credits {
   position: relative;
   grid-area: credits;
 }
-.nav-list .account-info .credits .usd-amount {
+.nav-list .account-info-item .credits .usd-amount {
   position: absolute;
   top: 1.25rem;
   left: 0;
@@ -359,13 +358,13 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   color: hsla(16, 99%, 46%, 0.914);
 }
 @media screen and (max-width: 66rem) {
-  .nav-list .account-info .credits {
+  .nav-list .account-info-item .credits {
     position: absolute;
     left: -200vw;
   }
 }
 @media screen and (max-width: 48rem) {
-  .nav-list .account-info .credits {
+  .nav-list .account-info-item .credits {
     position: static;
     width: fit-content;
     justify-self: center;
@@ -375,7 +374,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     left: 0;
     box-shadow: 0 0.15em 2px rgba(0, 0, 0, 0.075);
   }
-  .nav-list .account-info .credits a {
+  .nav-list .account-info-item .credits a {
     position: relative;
     display: inline-block;
     border: 2px solid rgba(246, 69, 0, 0.5098039216);
@@ -386,13 +385,13 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     font-size: 1.5rem;
     padding: 0.25em 8.25rem 0.25rem 1em;
   }
-  .nav-list .account-info .credits a:hover {
+  .nav-list .account-info-item .credits a:hover {
     /* hide underline-hover effect */
   }
-  .nav-list .account-info .credits a:hover::after {
+  .nav-list .account-info-item .credits a:hover::after {
     display: none;
   }
-  .nav-list .account-info .credits a::before {
+  .nav-list .account-info-item .credits a::before {
     content: "[ $5.99 USD ]"/"credits are equal to $5.99 USD";
     position: absolute;
     width: fit-content;
@@ -402,7 +401,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     font-size: 1rem;
   }
 }
-.nav-list .account-info .btn--options {
+.nav-list .account-info-item .btn--options {
   width: 3rem;
   aspect-ratio: 1/1;
   place-self: center;
@@ -416,7 +415,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   outline: 2px solid transparent;
   outline-offset: -4px;
 }
-.nav-list .account-info .btn--options svg {
+.nav-list .account-info-item .btn--options svg {
   pointer-events: none;
   width: 100%;
   height: 100%;
@@ -424,15 +423,15 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   /* remove whitespace underneath replaced element */
   vertical-align: bottom;
 }
-.nav-list .account-info .btn--options svg path {
+.nav-list .account-info-item .btn--options svg path {
   fill: hsl(220, 7%, 92%);
 }
-.nav-list .account-info .btn--options:hover {
+.nav-list .account-info-item .btn--options:hover {
   background: rgb(from hsl(278, 18%, 9%) r g b/98%);
   outline: 2px solid hsl(220, 7%, 92%);
 }
 @media screen and (max-width: 48rem) {
-  .nav-list .account-info .btn--options {
+  .nav-list .account-info-item .btn--options {
     justify-self: left;
   }
 }

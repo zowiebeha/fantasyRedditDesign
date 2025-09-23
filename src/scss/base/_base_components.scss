@@ -36,7 +36,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
 
     display: grid;
     align-items: center; // block direction item alignment within its grid area if there is free space
-    // Logo,    search-field,    account-info
+    // logo-item,    search-field,    account-info
     grid: 1fr / max-content max-content max-content;
     justify-content: space-between;  // inline direction container free space distribution among tracks
     
@@ -82,8 +82,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         list-style: none;
     }
     
-    // .search <li>
-    .nav-item.search {
+    // .search-item <li>
+    .nav-item.search-item {
             // LTE medium screen size
             @media screen and (max-width: base_variables.$breakpoint-md) {
                 width: 100%;
@@ -104,7 +104,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
                 // Grid items pack to the start of the container along the inline access. override this and center
                 // ... the search list item in what is now (due to xxsm screen size's grid definition) a (semi) column-based block layout
                 justify-self: center;
-                width: 82%;
+                width: 82%; // kind of hacky since we could update --search-field-width but meh
             }
     }
     
@@ -116,28 +116,29 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     // LTE small screen size
     @media screen and (max-width: base_variables.$breakpoint-sm) {
         // [?] Unknown: how do ignored grid area names (.) work in greater depth, according to practice and their specification definition?
-        grid: "logo logo logo" 1fr
-              ". search-field account-info" 1fr
+        grid: "logo-item logo-item logo-item" 1fr
+              ". search-item account-info-item" 1fr
         / max-content 1fr max-content; // why does (.) do nothing?
         gap: 2rem 1rem;
         
         --search-field-width: 100%;
         
-        .account-info {
-            grid-area: account-info;
+        .account-info-item {
+            grid-area: account-info-item;
         }
-        .search {
-            grid-area: search-field;
+        .search-item {
+            grid-area: search-item;
         }
-        .logo {
-            grid-area: logo;
-            width: 100%;
+        .logo-item {
+            grid-area: logo-item;
+            // [?] Unknown: I'm not sure why .logo doesn't default to justify-self: start instead of stretch...
             text-align: center;
+            
         }
     }
     
     @media screen and (max-width: base_variables.$breakpoint-xsm) {
-        grid: "logo logo logo" 1fr
+        grid: "logo-item logo-item logo-item" 1fr
               "toggle-sidebar-form search-field btn--options" 1fr
               "credits credits credits" 1fr
         / max-content 1fr max-content;
@@ -153,7 +154,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     }
     
     @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-        grid: "logo logo logo logo" 1fr
+        grid: "logo-item logo-item logo-item logo-item" 1fr
               "search-field search-field search-field search-field" 1fr
               "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr
               "credits credits credits credits" 1fr
@@ -274,14 +275,14 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         }
     }
 
-    .account-info {
+    .account-info-item {
         margin-left: auto;
 
         display: grid;
         grid: "username btn--options" auto "credits btn--options" auto / auto auto;
 
         @media screen and (max-width: base_variables.$breakpoint-md) {
-            column-gap: 0; // remove gap that the account-info has even though children are absolutely positioned elsewhere
+            column-gap: 0; // remove gap that the account-info-item has even though children are absolutely positioned elsewhere
         }
         
         @media screen and (max-width: base_variables.$breakpoint-xsm) {
