@@ -36,7 +36,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
 
     display: grid;
     align-items: center; // block direction item alignment within its grid area if there is free space
-    justify-items: right; // inline direction item alignment within its grid area if there is free space
     // Logo,    search-field,    account-info
     grid: 1fr / max-content max-content max-content;
     justify-content: space-between;  // inline direction container free space distribution among tracks
@@ -73,14 +72,15 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         background: linear-gradient(90deg, rgb(156 160 170 / 0.2) 0%, rgb(156 160 170 / 0.2) 12%, rgb(222 135 104 / 0.1) 13.82%, rgb(222 135 104 / 0.1) 22.2%, rgb(156 160 170 / 0.2) 24%, rgb(156 160 170 / 0.2) 31%, rgb(222 135 104 / 0.1) 33.14%, rgb(222 135 104 / 0.1) 66.12%, rgb(156 160 170 / 0.2) 68%, rgb(156 160 170 / 0.2) 71.33%, rgb(222 135 104 / 0.1) 73.11%, rgb(222 135 104 / 0.1) 86.84%, rgb(156 160 170 / 0.2) 89%);
     }
     
-    // .nav-item {
+    .nav-item {
         // Hide list item marker. Since the .nav-item (<li>) is a descendant of .nav-list (<ul>),
         // ... this makes no difference to a11y when compared to list-style: none;
         // [?] Unknown: read more about this and when we would ever want this:
         // &::marker {
         //     font-size: 0px;
         // }
-    // }
+        list-style: none;
+    }
     
     // .search <li>
     .nav-item.search {
@@ -91,7 +91,18 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             
             // LTE extra extra small screen size
             @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-                // Grid items stretch along the block axis of their grid area by default. Override this:
+                // Crazy explanation:
+                
+                // justify-items defaults to legacy.
+                // if justify-self is auto, then justify-items doesn't take effect for that descendant.
+                // justify-self defaults to auto.
+                // implicitly and hinted at by this relationship, auto means normal for justify-self
+                // justify-self: auto means stretch if the element has no aspect-ratio or no instrinsic size,
+                // otherwise auto means start. So if the item has content, justify-self: auto means start.
+                // Wacky.
+                
+                // Grid items pack to the start of the container along the inline access. override this and center
+                // ... the search list item in what is now (due to xxsm screen size's grid definition) a (semi) column-based block layout
                 justify-self: center;
                 width: 82%;
             }

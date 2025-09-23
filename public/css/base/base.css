@@ -162,7 +162,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   --search-field-width: 28rem;
   display: grid;
   align-items: center;
-  justify-items: right;
   grid: 1fr/max-content max-content max-content;
   justify-content: space-between;
 }
@@ -183,6 +182,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   height: 2px;
   width: 100%;
   background: linear-gradient(90deg, rgba(156, 160, 170, 0.2) 0%, rgba(156, 160, 170, 0.2) 12%, rgba(222, 135, 104, 0.1) 13.82%, rgba(222, 135, 104, 0.1) 22.2%, rgba(156, 160, 170, 0.2) 24%, rgba(156, 160, 170, 0.2) 31%, rgba(222, 135, 104, 0.1) 33.14%, rgba(222, 135, 104, 0.1) 66.12%, rgba(156, 160, 170, 0.2) 68%, rgba(156, 160, 170, 0.2) 71.33%, rgba(222, 135, 104, 0.1) 73.11%, rgba(222, 135, 104, 0.1) 86.84%, rgba(156, 160, 170, 0.2) 89%);
+}
+.nav-list .nav-item {
+  list-style: none;
 }
 @media screen and (max-width: 66rem) {
   .nav-list .nav-item.search {
