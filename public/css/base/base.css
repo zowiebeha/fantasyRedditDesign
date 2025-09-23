@@ -6,18 +6,17 @@
   scroll-behavior: smooth;
 }
 
-body * {
-  font-weight: 500;
-  font-family: "Rubik";
-  color: inherit;
-}
-
 body {
   color: hsl(278, 18%, 9%);
   background: hsl(220, 7%, 92%);
   display: grid;
   grid: "header header" auto "sidebar main" 1fr/max-content 1fr;
   height: 100vh;
+}
+body * {
+  font-weight: 500;
+  font-family: "Rubik";
+  color: inherit;
 }
 body > header {
   grid-area: header;
@@ -64,7 +63,6 @@ button {
   border: none;
 }
 
-/* icons should each be specific in their dimensions according to the design */
 *:not(svg) > svg.icon {
   width: 1.5rem;
   height: 1.5rem;
