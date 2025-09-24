@@ -78,41 +78,39 @@ button {
   color: hsl(16, 99%, 46%);
 }
 
-.underline-hover-no-svg > *:not(svg) {
-  position: relative;
-}
-.underline-hover-no-svg > *:not(svg)::after {
-  z-index: -1;
-  position: absolute;
-  bottom: 0.1em;
-  border-radius: 0.5rem;
-  left: 0;
-  content: "";
-  height: 2px;
-  background: hsl(278, 18%, 9%);
-  width: 0;
-  transition: 0.2s width ease-out, 0.2s height ease-out;
-}
-.underline-hover-no-svg:hover > *:not(svg)::after {
-  width: 100%;
-}
-
 .underline-hover {
   position: relative;
 }
 .underline-hover::after {
-  z-index: -1;
+  content: "";
   position: absolute;
   bottom: 0.1em;
-  border-radius: 0.5rem;
   left: 0;
-  content: "";
-  height: 2px;
   background: hsl(278, 18%, 9%);
-  width: 0;
+  border-radius: 0.5rem;
   transition: 0.2s width ease-out, 0.2s height ease-out;
+  height: 2px;
+  width: 0;
 }
 .underline-hover:hover::after {
+  width: 100%;
+}
+
+.underline-hover-no-svg > *:not(svg) {
+  position: relative;
+}
+.underline-hover-no-svg > *:not(svg)::after {
+  content: "";
+  position: absolute;
+  bottom: 0.1em;
+  left: 0;
+  background: hsl(278, 18%, 9%);
+  border-radius: 0.5rem;
+  transition: 0.2s width ease-out, 0.2s height ease-out;
+  height: 2px;
+  width: 0;
+}
+.underline-hover-no-svg:hover > *:not(svg)::after {
   width: 100%;
 }
 
@@ -517,7 +515,7 @@ Sidebar
   display: grid;
   /* all auto vs. all 1fr??? hmm.. what is fr based on here? is it auto + any other available space?
   why is there additional space when I use fr? maybe a glitch? */
-  grid: "logo subreddit" auto "logo thread-title" auto/auto auto;
+  grid: "logo-img subreddit" auto "logo-img thread-title" auto/auto auto;
   border: 1px solid transparent;
   padding: 0.5rem;
   transition: 0.4s border-color;
@@ -535,7 +533,7 @@ Sidebar
 #sidebar .recent-thread-list .item__link .thread__icon {
   width: 2rem;
   aspect-ratio: 1/1;
-  grid-area: logo;
+  grid-area: logo-img;
   align-self: center;
 }
 #sidebar .recent-thread-list .item__link .thread__subreddit {

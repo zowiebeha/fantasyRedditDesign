@@ -506,8 +506,8 @@ Sidebar
             display: grid;
             /* all auto vs. all 1fr??? hmm.. what is fr based on here? is it auto + any other available space?
             why is there additional space when I use fr? maybe a glitch? */
-            grid: "logo subreddit" auto
-                  "logo thread-title" auto
+            grid: "logo-img subreddit" auto
+                  "logo-img thread-title" auto
                   / auto auto;
                   
             @media screen and (max-width: base_variables.$breakpoint-sm) {
@@ -527,7 +527,7 @@ Sidebar
             .thread__icon {
                 width: 2rem;
                 aspect-ratio: 1/1;
-                grid-area: logo;
+                grid-area: logo-img;
                 align-self: center;
             }
 
