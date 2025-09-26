@@ -44,7 +44,7 @@
 // ... only have its text underlined upon hover. Note that text nodes will have no effect; a <span> or similar flow element is required for text.
 
 // <a> <span>Click to view profile</span> <svg class="icon icon--external">...</svg></a>
-.underline-hover-no-svg {
+.underline-hover-minus-svg {
     > *:not(svg) {
         position: relative;
     }
@@ -91,14 +91,14 @@
 // Responsive design utilities
 
 // Hide element on large screen widths that are greater than or equal to `$breakpoint-md`
-.no-md-gte {
+.hide-when-gte-md {
     @media screen and (min-width: base_variables.$breakpoint-md) {
         display: none;
     }
 }
 
 // Hide element on small screen widths that are smaller than or equal to `$breakpoint-xsm`
-.no-xsm-lte {
+.hide-when-lte-xsm {
     @media screen and (max-width: base_variables.$breakpoint-xsm) {
         display: none;
     }

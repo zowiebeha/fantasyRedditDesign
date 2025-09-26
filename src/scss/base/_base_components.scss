@@ -33,6 +33,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
     position: relative;
 
     --search-field-width: 28rem;
+    
+    // TODO: sort out --search-field-width and list item descendant width craziness.
 
     display: grid;
     align-items: center; // block direction item alignment within its grid area if there is free space
@@ -82,30 +84,85 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         list-style: none;
     }
     
+    // TODO: review
     // .search-item <li>
     .nav-item.search-item {
-            // LTE medium screen size
-            @media screen and (max-width: base_variables.$breakpoint-md) {
-                width: 100%;
-            }
+        // LTE medium screen size
+        @media screen and (max-width: base_variables.$breakpoint-md) {
+            width: 100%;
+        }
+        
+        // LTE extra extra small screen size
+        @media screen and (max-width: base_variables.$breakpoint-xxsm) {
+            // Crazy explanation:
             
-            // LTE extra extra small screen size
-            @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-                // Crazy explanation:
+            // justify-items defaults to legacy.
+            // if justify-self is auto, then justify-items doesn't take effect for that descendant.
+            // justify-self defaults to auto.
+            // implicitly and hinted at by this relationship, auto means normal for justify-self
+            // justify-self: auto means stretch if the element has no aspect-ratio or no instrinsic size,
+            // otherwise auto means start. So if the item has content, justify-self: auto means start.
+            // Wacky.
+            
+            // Grid items pack to the start of the container along the inline access. override this and center
+            // ... the search list item in what is now (due to xxsm screen size's grid definition) a (semi) column-based block layout
+            justify-self: center;
+            width: 82%; // kind of hacky since we could update --search-field-width but meh
+        }
+        
+        #search-form {
+            .icon-field-wrapper {
+                position: relative;
+                height: 3rem;
                 
-                // justify-items defaults to legacy.
-                // if justify-self is auto, then justify-items doesn't take effect for that descendant.
-                // justify-self defaults to auto.
-                // implicitly and hinted at by this relationship, auto means normal for justify-self
-                // justify-self: auto means stretch if the element has no aspect-ratio or no instrinsic size,
-                // otherwise auto means start. So if the item has content, justify-self: auto means start.
-                // Wacky.
-                
-                // Grid items pack to the start of the container along the inline access. override this and center
-                // ... the search list item in what is now (due to xxsm screen size's grid definition) a (semi) column-based block layout
-                justify-self: center;
-                width: 82%; // kind of hacky since we could update --search-field-width but meh
+                .field-icon {
+                    position: absolute;
+                    // 27px by 24px
+                    width: 1.3rem;
+                    height: 1.25rem;
+                    left: 0.5rem;
+                    top: 50%; // move top face by 50% from the top of the pos-relative div
+                    transform: translate(1rem, -50%); // translate 50% of width up such that the icon is positioned relative to the center of itself by 50% from the top of the pos-relative div
+
+                    path {
+                        fill: base_variables.$color-orange-light;
+                    }
+                }
+
+
+                #search-field {
+                    height: 100%;
+                    width: var(--search-field-width);
+                    border-radius: 1rem;
+                    // user text
+                    color: base_variables.$color-orange-light;
+
+                    border: 1px solid rgba(163, 44, 1, 0.24);
+                    background: linear-gradient(180deg, rgb(239 217 210 / 0.72) 0%, rgb(234 205 195 / 0.72) 100%);
+                    box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24);
+                    
+                    font-size: 1.25rem;
+                    padding-left: 3.6875rem; // hold space for the icon
+
+                    &::placeholder {
+                        color: base_variables.$color-orange-light;
+                    }
+
+                    transition: .2s box-shadow, .4s border-color;
+
+                    &:focus {
+                        border-color: hsl(from base_variables.$color-orange h s calc(l + 32));
+                        outline: none; // override browser default
+                        box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24),
+                                    0 0 0 2px rgba(218, 151, 135, 0.24);
+                    }
+                    
+                    &:hover {
+                        border-color: hsl(from base_variables.$color-orange h s calc(l + 32));
+                    }
+                }
             }
+        }
     }
     
     // LTE medium screen size
@@ -119,6 +176,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         grid: "logo-item logo-item logo-item" 1fr
               ". search-item account-info-item" 1fr
         / max-content 1fr max-content; // why does (.) do nothing?
+        
+        // [?] Why do the tracks stretch such that the gap is bigger than what's defined here?:
         gap: 2rem 1rem;
         
         --search-field-width: 100%;
@@ -132,149 +191,96 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         .logo-item {
             grid-area: logo-item;
             // [?] Unknown: I'm not sure why .logo doesn't default to justify-self: start instead of stretch...
-            text-align: center;
-            
+            // [!] Answer: .logo-item has a width of auto, which by default fills all available inline space.
+            //             justify-self makes an item's width fit to its contents (min or max?), and aligns it within its grid area too.
+            text-align: center; // text-align is left by default, so we must align-center
         }
     }
     
+    // LTE extra small screen size
     @media screen and (max-width: base_variables.$breakpoint-xsm) {
         grid: "logo-item logo-item logo-item" 1fr
-              "toggle-sidebar-form search-field btn--options" 1fr
+              "toggle-sidebar-form search-item btn--options" 1fr
               "credits credits credits" 1fr
         / max-content 1fr max-content;
         
-        // why does space-between justify-content increase the width of the container?
-        // dive back into grid!! and the spec!! :D
+        // [?] Unknown: why does space-between justify-content increase the width of the container's content area?
+        // requires a dive back into grid!! and the spec!! :D
         
-        gap: 2rem .5rem;
+        row-gap: .5rem;
     
         #toggle-sidebar-form {
             grid-area: toggle-sidebar-form;
         }
     }
     
+    // LTE extra extra small screen size
     @media screen and (max-width: base_variables.$breakpoint-xxsm) {
         grid: "logo-item logo-item logo-item logo-item" 1fr
-              "search-field search-field search-field search-field" 1fr
+              "search-item search-item search-item search-item" 1fr
               "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr
               "credits credits credits credits" 1fr
         / max-content max-content max-content max-content;
         
-        padding: 1.25rem 1rem;
+        padding: 1.25rem 1rem; // reduced left/right padding
         
-        gap: 1rem 1rem;
+        gap: 1rem;
     }
     
-////////////////
-    /// STOP - SEGMENT 1 ////
- ////////////////
-    
+    // TODO: review
     #toggle-sidebar-form {
+        // If we .....
         @media screen and (min-width: calc(base_variables.$breakpoint-xsm + 1px)) {
             display: none;
         }
-    }
-
-    // i could use sr-only style to keep the sidebar in the accessibility tree,
-    // ... then show it for mobile users to save space.
-    
-    #btn--toggle-sidebar {
-        appearance: none; // override browser styling
         
-        background: rgb(240 240 240);
-        border: 2px solid #C4BBBB;
-        box-shadow: 0 1px 0 rgb(156 161 170 / 32%);
-        
-        border-radius: 1rem;
-        width: 3rem;
-        aspect-ratio: 1 / 1;
-        
-        display: grid;
-        place-items: center;
-        
-        &::after {
-            content: url("../../assets/svg/hamburger-icon.svg")
-                     / "An icon of three horizontal lines which represent a textured hamburger menu icon.";
-            display: block;
-            width: 52%;
-            height: 1.2rem; // magic number to make it look centered. fit-content leaves some space after for some reason (svg scaling/viewport issue).
+        // i could use sr-only style to keep the sidebar in the accessibility tree,
+        // ... then show it for mobile users to save space.
+        #btn--toggle-sidebar {
+            appearance: none; // override browser styling
             
-        }
-        &:checked {
+            background: rgb(240 240 240);
+            border: 2px solid #C4BBBB;
+            box-shadow: 0 1px 0 rgb(156 161 170 / 32%);
+            
+            border-radius: 1rem;
+            width: 3rem;
+            aspect-ratio: 1 / 1;
+            
+            display: grid;
+            place-items: center;
+            
             &::after {
-                content: url("../../assets/svg/close-icon.svg")
-                     / "A letter X representing a close icon.";
-                width: 64%;
-                height: 1.7rem; // magic number to make it look centered. fit-content leaves some space after for some reason (svg scaling/viewport issue).
+                content: url("../../assets/svg/hamburger-icon.svg")
+                        / "An icon of three horizontal lines which represent a textured hamburger menu icon.";
+                display: block;
+                width: 52%;
+                height: 1.2rem; // magic number to make it look centered. fit-content leaves some space after for some reason (svg scaling/viewport issue).
+                
             }
-            background: rgb(232 227 227);
-        }
-        
-        transition: .2s background;
-        &:hover {
-            cursor: pointer;
-        }
-        
-        @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-            grid-area: toggle-sidebar-form;
-            justify-self: right;
-        }
-    }
-    
-    #search-form {
-        .icon-field-wrapper {
-            position: relative;
-            height: 3rem;
+            &:checked {
+                &::after {
+                    content: url("../../assets/svg/close-icon.svg")
+                        / "A letter X representing a close icon.";
+                    width: 64%;
+                    height: 1.7rem; // magic number to make it look centered. fit-content leaves some space after for some reason (svg scaling/viewport issue).
+                }
+                background: rgb(232 227 227);
+            }
             
-            .field-icon {
-                position: absolute;
-                // 27px by 24px
-                width: 1.3rem;
-                height: 1.25rem;
-                left: 0.5rem;
-                top: 50%; // move top face by 50% from the top of the pos-relative div
-                transform: translate(1rem, -50%); // translate 50% of width up such that the icon is positioned relative to the center of itself by 50% from the top of the pos-relative div
-
-                path {
-                    fill: base_variables.$color-orange-light;
-                }
+            transition: .2s background;
+            &:hover {
+                cursor: pointer;
             }
-
-
-            #search-field {
-                height: 100%;
-                width: var(--search-field-width);
-                border-radius: 1rem;
-                // user text
-                color: base_variables.$color-orange-light;
-
-                border: 1px solid rgba(163, 44, 1, 0.24);
-                background: linear-gradient(180deg, rgb(239 217 210 / 0.72) 0%, rgb(234 205 195 / 0.72) 100%);
-                box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24);
-                
-                font-size: 1.25rem;
-                padding-left: 3.6875rem; // hold space for the icon
-
-                &::placeholder {
-                    color: base_variables.$color-orange-light;
-                }
-
-                transition: .2s box-shadow, .4s border-color;
-
-                &:focus {
-                    border-color: hsl(from base_variables.$color-orange h s calc(l + 32));
-                    outline: none; // override browser default
-                    box-shadow: inset 0px 4px 4px rgb(240 67 5 / 0.24),
-                                0 0 0 2px rgba(218, 151, 135, 0.24);
-                }
-                
-                &:hover {
-                    border-color: hsl(from base_variables.$color-orange h s calc(l + 32));
-                }
+            
+            @media screen and (max-width: base_variables.$breakpoint-xxsm) {
+                grid-area: toggle-sidebar-form;
+                justify-self: right;
             }
         }
     }
 
+    // TODO: review
     .account-info-item {
         margin-left: auto;
 

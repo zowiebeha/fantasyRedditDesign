@@ -96,10 +96,10 @@ button {
   width: 100%;
 }
 
-.underline-hover-no-svg > *:not(svg) {
+.underline-hover-minus-svg > *:not(svg) {
   position: relative;
 }
-.underline-hover-no-svg > *:not(svg)::after {
+.underline-hover-minus-svg > *:not(svg)::after {
   content: "";
   position: absolute;
   bottom: 0.1em;
@@ -110,7 +110,7 @@ button {
   height: 2px;
   width: 0;
 }
-.underline-hover-no-svg:hover > *:not(svg)::after {
+.underline-hover-minus-svg:hover > *:not(svg)::after {
   width: 100%;
 }
 
@@ -127,13 +127,13 @@ button {
 }
 
 @media screen and (min-width: 66rem) {
-  .no-md-gte {
+  .hide-when-gte-md {
     display: none;
   }
 }
 
 @media screen and (max-width: 48rem) {
-  .no-xsm-lte {
+  .hide-when-lte-xsm {
     display: none;
   }
 }
@@ -195,6 +195,44 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     width: 82%;
   }
 }
+.nav-list .nav-item.search-item #search-form .icon-field-wrapper {
+  position: relative;
+  height: 3rem;
+}
+.nav-list .nav-item.search-item #search-form .icon-field-wrapper .field-icon {
+  position: absolute;
+  width: 1.3rem;
+  height: 1.25rem;
+  left: 0.5rem;
+  top: 50%;
+  transform: translate(1rem, -50%);
+}
+.nav-list .nav-item.search-item #search-form .icon-field-wrapper .field-icon path {
+  fill: hsl(16, 99%, 51%);
+}
+.nav-list .nav-item.search-item #search-form .icon-field-wrapper #search-field {
+  height: 100%;
+  width: var(--search-field-width);
+  border-radius: 1rem;
+  color: hsl(16, 99%, 51%);
+  border: 1px solid rgba(163, 44, 1, 0.24);
+  background: linear-gradient(180deg, rgba(239, 217, 210, 0.72) 0%, rgba(234, 205, 195, 0.72) 100%);
+  box-shadow: inset 0px 4px 4px rgba(240, 67, 5, 0.24);
+  font-size: 1.25rem;
+  padding-left: 3.6875rem;
+  transition: 0.2s box-shadow, 0.4s border-color;
+}
+.nav-list .nav-item.search-item #search-form .icon-field-wrapper #search-field::placeholder {
+  color: hsl(16, 99%, 51%);
+}
+.nav-list .nav-item.search-item #search-form .icon-field-wrapper #search-field:focus {
+  border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
+  outline: none;
+  box-shadow: inset 0px 4px 4px rgba(240, 67, 5, 0.24), 0 0 0 2px rgba(218, 151, 135, 0.24);
+}
+.nav-list .nav-item.search-item #search-form .icon-field-wrapper #search-field:hover {
+  border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
+}
 @media screen and (max-width: 66rem) {
   .nav-list {
     --search-field-width: 24rem;
@@ -219,8 +257,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 48rem) {
   .nav-list {
-    grid: "logo-item logo-item logo-item" 1fr "toggle-sidebar-form search-field btn--options" 1fr "credits credits credits" 1fr/max-content 1fr max-content;
-    gap: 2rem 0.5rem;
+    grid: "logo-item logo-item logo-item" 1fr "toggle-sidebar-form search-item btn--options" 1fr "credits credits credits" 1fr/max-content 1fr max-content;
+    row-gap: 0.5rem;
   }
   .nav-list #toggle-sidebar-form {
     grid-area: toggle-sidebar-form;
@@ -228,9 +266,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 @media screen and (max-width: 32rem) {
   .nav-list {
-    grid: "logo-item logo-item logo-item logo-item" 1fr "search-field search-field search-field search-field" 1fr "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr "credits credits credits credits" 1fr/max-content max-content max-content max-content;
+    grid: "logo-item logo-item logo-item logo-item" 1fr "search-item search-item search-item search-item" 1fr "toggle-sidebar-form toggle-sidebar-form btn--options btn--options" 1fr "credits credits credits credits" 1fr/max-content max-content max-content max-content;
     padding: 1.25rem 1rem;
-    gap: 1rem 1rem;
+    gap: 1rem;
   }
 }
 @media screen and (min-width: calc(48rem + 1px)) {
@@ -238,7 +276,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     display: none;
   }
 }
-.nav-list #btn--toggle-sidebar {
+.nav-list #toggle-sidebar-form #btn--toggle-sidebar {
   appearance: none;
   background: rgb(240, 240, 240);
   border: 2px solid #C4BBBB;
@@ -250,66 +288,28 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
   place-items: center;
   transition: 0.2s background;
 }
-.nav-list #btn--toggle-sidebar::after {
+.nav-list #toggle-sidebar-form #btn--toggle-sidebar::after {
   content: url("../../assets/svg/hamburger-icon.svg")/"An icon of three horizontal lines which represent a textured hamburger menu icon.";
   display: block;
   width: 52%;
   height: 1.2rem;
 }
-.nav-list #btn--toggle-sidebar:checked {
+.nav-list #toggle-sidebar-form #btn--toggle-sidebar:checked {
   background: rgb(232, 227, 227);
 }
-.nav-list #btn--toggle-sidebar:checked::after {
+.nav-list #toggle-sidebar-form #btn--toggle-sidebar:checked::after {
   content: url("../../assets/svg/close-icon.svg")/"A letter X representing a close icon.";
   width: 64%;
   height: 1.7rem;
 }
-.nav-list #btn--toggle-sidebar:hover {
+.nav-list #toggle-sidebar-form #btn--toggle-sidebar:hover {
   cursor: pointer;
 }
 @media screen and (max-width: 32rem) {
-  .nav-list #btn--toggle-sidebar {
+  .nav-list #toggle-sidebar-form #btn--toggle-sidebar {
     grid-area: toggle-sidebar-form;
     justify-self: right;
   }
-}
-.nav-list #search-form .icon-field-wrapper {
-  position: relative;
-  height: 3rem;
-}
-.nav-list #search-form .icon-field-wrapper .field-icon {
-  position: absolute;
-  width: 1.3rem;
-  height: 1.25rem;
-  left: 0.5rem;
-  top: 50%;
-  transform: translate(1rem, -50%);
-}
-.nav-list #search-form .icon-field-wrapper .field-icon path {
-  fill: hsl(16, 99%, 51%);
-}
-.nav-list #search-form .icon-field-wrapper #search-field {
-  height: 100%;
-  width: var(--search-field-width);
-  border-radius: 1rem;
-  color: hsl(16, 99%, 51%);
-  border: 1px solid rgba(163, 44, 1, 0.24);
-  background: linear-gradient(180deg, rgba(239, 217, 210, 0.72) 0%, rgba(234, 205, 195, 0.72) 100%);
-  box-shadow: inset 0px 4px 4px rgba(240, 67, 5, 0.24);
-  font-size: 1.25rem;
-  padding-left: 3.6875rem;
-  transition: 0.2s box-shadow, 0.4s border-color;
-}
-.nav-list #search-form .icon-field-wrapper #search-field::placeholder {
-  color: hsl(16, 99%, 51%);
-}
-.nav-list #search-form .icon-field-wrapper #search-field:focus {
-  border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
-  outline: none;
-  box-shadow: inset 0px 4px 4px rgba(240, 67, 5, 0.24), 0 0 0 2px rgba(218, 151, 135, 0.24);
-}
-.nav-list #search-form .icon-field-wrapper #search-field:hover {
-  border-color: hsl(from hsl(16, 99%, 46%) h s calc(l + 32));
 }
 .nav-list .account-info-item {
   margin-left: auto;
