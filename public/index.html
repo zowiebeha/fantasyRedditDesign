@@ -219,21 +219,22 @@
                 <!-- Thread card -->
                 <article class="card card--thread-card">
                     <a href="#">
-                        <div class="publication-info">
-                            <img class="icon" src="./media/recent-1.png" alt="Subreddit logo for r/RedesignHelp">
-                            <p class="subreddit">r/RedesignHelp</p>
-                            <p class="author">ZadocPaet</p>
-                            <p class="published">
+                        <div class="card-publication-info">
+                            <img class="icon-img" src="./media/recent-1.png" alt="Subreddit logo for r/RedesignHelp">
+                            <p class="subreddit-title">r/RedesignHelp</p>
+                            <p class="author-name">ZadocPaet</p>
+                            <p class="date-published">
                                 <time datetime="2017">• 8 yr. ago</time>
                             </p>
                         </div>
-                        <h3 class="card__title">Official reddit brand hex color codes...</h3>
-                        <p>
+                        
+                        <h3 class="card-title">Official reddit brand hex color codes...</h3>
+                        <p class="card-body">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum corporis vero cum, numquam necessitatibus obcaecati ratione earum eaque delectus, nobis maiores quisquam ea voluptas eum consectetur quidem perferendis nisi pariatur.
                         </p>
                         
                         <!-- improve aria -->
-                        <div class="social-buttons">
+                        <div class="card-engagement-buttons">
                             <!-- will need to prevent event bubbling on these and use JS for a nested link -->
                             <div class="btn btn--like">
                                 <svg class="icon" data-width="18" data-height="20" viewBox="0 0 18 20">
@@ -256,19 +257,19 @@
                     </a>
                 </article>
                 
-                <!-- Price, share, buy, sell card -->
+                <!-- Price, relative thread growth within x time, share, buy, sell card -->
                 <div class="card card--thread-options">
                     <h3 class="credit-cost">52 credits</h3>
                     
                     <div class="badge badge--growth">
                         <div class="icon-wrapper">
                             <svg class="icon icon--growth" data-width="15" data-height="9" viewBox="0 0 15 9">
-                                <title>Diagonal jagged green arrow icon going from left to right</title>
+                                <title>Diagonal jagged green arrow icon going from bottom left to top right</title>
                                 <use href="./assets/svg/rise-icon.svg#rise-icon"></use>
                             </svg>
                         </div>
                         
-                        <p class="growth__amount">+35%</p>
+                        <p class="growth-amount">+35%</p>
                     </div>
                     
                     <button class="btn btn--share">

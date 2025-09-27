@@ -555,7 +555,6 @@ Main components shared by many pages
 @media screen and (max-width: 78rem) {
   .card-list {
     flex-direction: column;
-    align-items: flex-end;
     position: relative;
   }
 }
@@ -583,21 +582,21 @@ Main components shared by many pages
     width: 100%;
   }
 }
-.card--thread-card .publication-info {
+.card--thread-card .card-publication-info {
   display: grid;
-  grid: "icon subreddit published" 1fr "icon author ." 1fr/auto auto auto;
+  grid: "icon-img subreddit-title date-published" 1fr "icon-img author-name ." 1fr/auto auto auto;
   column-gap: 0.5rem;
   row-gap: 0.25rem;
   width: fit-content;
 }
-.card--thread-card .publication-info .icon {
-  grid-area: icon;
+.card--thread-card .card-publication-info .icon-img {
+  grid-area: icon-img;
 }
-.card--thread-card .publication-info .subreddit {
-  grid-area: subreddit;
+.card--thread-card .card-publication-info .subreddit-title {
+  grid-area: subreddit-title;
 }
-.card--thread-card .publication-info .published {
-  grid-area: published;
+.card--thread-card .card-publication-info .date-published {
+  grid-area: date-published;
   font-size: 0.75rem;
   color: rgba(14, 17, 27, 0.56);
   align-self: center;
@@ -606,25 +605,25 @@ Main components shared by many pages
      only if no other style declaration has been
      applied directly to the element.
 
-     A style exists in the base to color all elements black.
+     A style exists in the base to color all element text nodes black ( * {color: ...} ).
      Thus, we must override time's black color to make it inherit from published.
   */
 }
-.card--thread-card .publication-info .published time {
+.card--thread-card .card-publication-info .date-published time {
   color: inherit;
 }
-.card--thread-card .publication-info .author {
-  grid-area: author;
+.card--thread-card .card-publication-info .author-name {
+  grid-area: author-name;
   font-size: 0.75rem;
 }
-.card--thread-card .card__title,
-.card--thread-card .card__title + * {
+.card--thread-card .card-title {
+  font-size: 1.5rem;
   margin-top: 0.5rem;
 }
-.card--thread-card .card__title {
-  font-size: 1.5rem;
+.card--thread-card .card-body {
+  margin-top: 0.5rem;
 }
-.card--thread-card .social-buttons {
+.card--thread-card .card-engagement-buttons {
   margin-top: 0.75rem;
   display: flex;
   gap: 1rem;
@@ -635,15 +634,15 @@ Main components shared by many pages
       applied directly to the element.
 
       A style exists in the base to color all elements black.
-      Thus, we must override the nested paragraph's black color to make it inherit from social-buttons.
+      If we want to change the p to say, grey (as per the design),
+      .. we must override the nested paragraph's black color to make it inherit from .card-engagement-buttons.
   */
 }
-.card--thread-card .social-buttons p {
-  color: inherit;
+.card--thread-card .card-engagement-buttons p {
   line-height: 1.5;
 }
-.card--thread-card .social-buttons .btn--like,
-.card--thread-card .social-buttons .btn--dislike {
+.card--thread-card .card-engagement-buttons .btn--like,
+.card--thread-card .card-engagement-buttons .btn--dislike {
   display: flex;
   gap: 0.75rem;
 }
@@ -656,7 +655,6 @@ Main components shared by many pages
 }
 @media screen and (max-width: 78rem) {
   .card--thread-options {
-    width: fit-content;
     position: absolute;
     right: 1rem;
     bottom: -8.5rem;
@@ -689,7 +687,7 @@ Main components shared by many pages
   fill: #2CC944;
   width: 1rem;
 }
-.card--thread-options .badge--growth .growth__amount {
+.card--thread-options .badge--growth .growth-amount {
   width: fit-content;
   padding: 0 0.75rem 0 2.5rem;
   background: #8DE29A;
@@ -697,6 +695,7 @@ Main components shared by many pages
   border-radius: 0.375rem;
 }
 .card--thread-options .btn--share {
+  grid-area: btn-share;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -706,7 +705,6 @@ Main components shared by many pages
   border-radius: 0.75rem;
   background: #E0E0E0;
   border: 1px solid rgba(14, 17, 27, 0.16);
-  grid-area: btn-share;
   transition: 0.2s scale ease-out;
 }
 .card--thread-options .btn--share:hover {
