@@ -557,12 +557,14 @@ Main components shared by many pages
 
 .card-list {
     display: flex;
+    // make items' block length fit-content instead of stretch if they have no height set
+    // we could also set height: fit-content for items but meh either way works
     align-items: flex-end;
     gap: 2rem;
     
     @media screen and (max-width: base_variables.$breakpoint-lg) {
         flex-direction: column;
-        position: relative;
+        position: relative; // allow for item absolute positioning relative to this container
     }
     
     @media screen and (max-width: base_variables.$breakpoint-md-sm) {
