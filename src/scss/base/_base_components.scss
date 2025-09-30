@@ -227,17 +227,21 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         gap: 1rem;
     }
     
-    // TODO: review
     #toggle-sidebar-form {
-        // If we .....
+        // The sidebar disappears at LTE $breakpoint-xsm.
+        // The #toggle-sidebar-form is hidden at GTE $breakpoint-xsm.
+        // At a screen size of exactly $breakpoint-xsm, the sidebar and toggler will be hidden, with no way to show it.
+        // Add 1px to the media query to ensure #toggle-sidebar-form displays when the sidebar disappears.
+        
+        // GT $breakpoint-xsm
         @media screen and (min-width: calc(base_variables.$breakpoint-xsm + 1px)) {
             display: none;
         }
         
-        // i could use sr-only style to keep the sidebar in the accessibility tree,
+        // I could use a sr-only style to keep the sidebar in the accessibility tree,
         // ... then show it for mobile users to save space.
         #btn--toggle-sidebar {
-            appearance: none; // override browser styling
+            appearance: none; // Override browser default styling for an input checkbox
             
             background: rgb(240 240 240);
             border: 2px solid #C4BBBB;
@@ -248,16 +252,18 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             aspect-ratio: 1 / 1;
             
             display: grid;
-            place-items: center;
+            place-items: center; // Center the psuedo-element icon
             
             &::after {
                 content: url("../../assets/svg/hamburger-icon.svg")
                         / "An icon of three horizontal lines which represent a textured hamburger menu icon.";
                 display: block;
                 width: 52%;
+                // [?] Todo: Learn more about SVG
                 height: 1.2rem; // magic number to make it look centered. fit-content leaves some space after for some reason (svg scaling/viewport issue).
                 
             }
+            
             &:checked {
                 &::after {
                     content: url("../../assets/svg/close-icon.svg")
@@ -274,8 +280,8 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             }
             
             @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-                grid-area: toggle-sidebar-form;
-                justify-self: right;
+                grid-area: toggle-sidebar-form; // .nav-list's grid area at a $breakpoint-xsm screen size
+                justify-self: right; // override default (in practice the default is `start` as explained somewhere in this file)
             }
         }
     }
@@ -427,13 +433,15 @@ Sidebar
     padding: 4rem;
     padding-bottom: 2rem;
 
+    // LTE $breakpoint-xsm
     @media screen and (max-width: base_variables.$breakpoint-sm) {
         // 100% of the screen height might be too small and cause contents to overflow the content box, which makes it look like there's no padding
         // fit the contents. if there aren't many recently viewed items, fill the screen height
         height: fit-content;
         min-height: 100%; // we could optimize this by putting it into the #sidebar with no media query, but this makes more sense to read
     }
-                       
+              
+    // LTE $breakpoint-xsm
     @media screen and (max-width: base_variables.$breakpoint-xsm) {
         display: none;
         
@@ -446,6 +454,7 @@ Sidebar
         background: base_variables.$color-white;
     }
     
+    // LTE $breakpoint-xsm
     @media screen and (max-width: base_variables.$breakpoint-xxsm) {
         top: 17.5rem; // size of header box at this screen size
     }
