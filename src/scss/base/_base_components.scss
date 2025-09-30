@@ -428,16 +428,20 @@ Sidebar
     padding-bottom: 2rem;
 
     @media screen and (max-width: base_variables.$breakpoint-sm) {
+        // 100% of the screen height might be too small and cause contents to overflow the content box, which makes it look like there's no padding
+        // fit the contents. if there aren't many recently viewed items, fill the screen height
         height: fit-content;
+        min-height: 100%; // we could optimize this by putting it into the #sidebar with no media query, but this makes more sense to read
     }
                        
     @media screen and (max-width: base_variables.$breakpoint-xsm) {
         display: none;
         
         position: absolute;
-        z-index: 1;
+        z-index: 1; // draw stacking context over-top main content
+        
         top: 15.5rem; // size of header box at this screen size
-        width: 100%;
+        width: 100%; // fill screen width
         
         background: base_variables.$color-white;
     }
@@ -446,7 +450,7 @@ Sidebar
         top: 17.5rem; // size of header box at this screen size
     }
     
-    // right border
+    // Make a fake border-right so that we can give it a linear gradient
     &::after {
         content: "";
 
@@ -461,7 +465,7 @@ Sidebar
     }
 
     .sidebar-navlist {
-        margin-bottom: 4rem;
+        margin-bottom: 4.75rem; // distance between "Recently Viewed" heading and nav link
 
         .navlist-item {
             width: fit-content;
@@ -472,29 +476,34 @@ Sidebar
 
             .item-link {
                 display: flex;
-                align-items: center; // don't stretch and cause poor vertical alignment for text with a smaller block length than the largest element in the line (the icon)
+                // Don't cause items to stretch while text remains at the top left, which causes poor vertical alignment for text.
+                // This makes the item's height fit its contents, and aligns it in the center of its line along the cross axis. The line assumes a block length of its child with the longest block length in LTR writing mode w/ flex-direction: row.
+                align-items: center;
                 gap: 0.625rem;
             }
         }
 
         .navlist-item:nth-child(n+2) {
-            margin-top: 2rem;
+            margin-top: 2rem; // Spacing between nav links. We could opt for a flex <ul>, but that is too many nested flexboxes imo for a small feature like this.
         }
     }
 
     .recent-thread-list {
-        margin-top: .75rem;
+        margin-top: .75rem; // distance between list of threads and "Recently Viewed" heading
         /* Not sure why body's max-content column track inline length squishes this. Explicitly give max-content width to the recently viewed subreddit: */
-        width: max-content;
+        width: max-content; // make links take up size that they need, instead of 100%.
+        
+        // Fixed size to allow scrolling for overflow
         height: 14.75rem;
         
+        // Scrollbar properties
         scrollbar-gutter: auto;
         overflow-y: auto;
         scrollbar-color: base_variables.$color-black transparent;
         scrollbar-width: thin;    
         
         @media screen and (max-width: base_variables.$breakpoint-sm) {
-            // no more overflow
+            // No more overflow; expand to infinity (not that we should show that much history)
             height: fit-content;
         }
 
@@ -510,15 +519,15 @@ Sidebar
 
         .item__link {
             display: grid;
-            /* all auto vs. all 1fr??? hmm.. what is fr based on here? is it auto + any other available space?
-            why is there additional space when I use fr? maybe a glitch? */
-            grid: "logo-img subreddit" auto
+            /*
+                all auto vs. all 1fr???
+                hmm.. what is fr based on here?
+                is it auto + any other available space?
+                why is there additional space when I use fr? maybe a glitch?
+            */
+            grid: "logo-img subreddit-title" auto
                   "logo-img thread-title" auto
                   / auto auto;
-                  
-            @media screen and (max-width: base_variables.$breakpoint-sm) {
-                justify-content: start;
-            }
             
             border: 1px solid transparent;
             padding: .5rem;
@@ -538,7 +547,7 @@ Sidebar
             }
 
             .thread__subreddit {
-                grid-area: subreddit;
+                grid-area: subreddit-title;
             }
 
             .thread__title {
