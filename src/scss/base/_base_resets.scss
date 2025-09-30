@@ -107,5 +107,6 @@ button {
     // width: attr(data-width px);
     // height: attr(data-height px);
     
+    /* Warning: disables event emission for the svg */
     pointer-events: none; // don't display <svg> <title>s on hover
 }

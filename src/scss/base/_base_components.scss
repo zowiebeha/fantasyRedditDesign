@@ -288,117 +288,109 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
 
     // TODO: review
     .account-info-item {
-        margin-left: auto;
-
         display: grid;
         grid: "username btn--options" auto "credits btn--options" auto / auto auto;
-
-        @media screen and (max-width: base_variables.$breakpoint-md) {
-            column-gap: 0; // remove gap that the account-info-item has even though children are absolutely positioned elsewhere
-        }
-        
-        @media screen and (max-width: base_variables.$breakpoint-xsm) {
-            display: contents; // pretend the div no longer exists so that we can place the children
-        }
-        
-        @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-            justify-self: left;
-        }
-        
         column-gap: 1rem;
+
+        // LTE 
+        @media screen and (max-width: base_variables.$breakpoint-md) {
+            // Without a gap of 0, unwanted space appears even though username & credit count are hidden (absolutely positioned for a11y ux)
+            column-gap: 0;
+        }
         
-        /* use percentage margins? or use grid on the nav-list instead of flex w/ percentage inline-length columns ✅ */
+        // LTE
+        @media screen and (max-width: base_variables.$breakpoint-xsm) {
+            // Pretend the div no longer exists so that we can place the consituent children (button; username & credit count are hidden at LTE $breakpoint-md) as a direct child of .nav-list
+            display: contents;
+        }
+        
         .username {
+            grid-area: username;
+            align-self: end; // Place at the bottom of the grid area's block axis
+            
+            // Retain a11y ux but hide the username visually at LTE $breakpoint-md
             @media screen and (max-width: base_variables.$breakpoint-md) {
                 position: absolute;
                 left: -200vw;
             }
-        
-            grid-area: username;
-            align-self: end;
         }
 
+        // Credit count
         .credits {
             position: relative;
-            .usd-amount {
-                position: absolute;
-                top: 1.25rem;
-                left: 0;
-                font-size: .75rem;
-                width: fit-content;
-                color: hsla(16, 99%, 46%, 0.914);
-            }
+            
+            // Retain a11y ux but hide the header credits visually at LTE $breakpoint-md, since the sidebar displays them at this screen width
             @media screen and (max-width: base_variables.$breakpoint-md) {
                 position: absolute;
                 left: -200vw;
             }
             
+            // Display credit count at LTE $breakpoint-xsm as per client user story.
+            // Give it some re-styling for better effect
             @media screen and (max-width: base_variables.$breakpoint-xsm) {
                 position: static;
+                
                 width: fit-content;
-                justify-self: center;
+                
+                justify-self: center; // Override default (in practice, default value acts like `start`)
+                grid-area: credits; // Place in a .nav-list grid area since .account-info-item has destructured via `display: contents;` 
+                
                 background: linear-gradient(45deg hsl(15.79deg 100% 78.54% / 25%) 0%, rgba(255, 255, 255, 0.144) 100%);
-                position: relative;
                 border-radius: .5rem;
-                left: 0; // reset old value
                 
                 a {    
-                    position: relative;
-                    display: inline-block;
-                    border: 2px solid #f6450082;
-                    color: hsl(15.79deg 100% 54.79% / 95%);
-                    text-align: left;
-                    border-radius: .5rem;
+                    display: inline-block; // Permit width changes
                     width: fit-content;            
-                    font-size: 1.5rem;
-                    padding: 0.25em 8.25rem .25rem 1em;
                     
+                    color: hsl(15.79deg 100% 54.79% / 95%);
+                    font-size: 1.5rem;
+                    
+                    padding: 0.25rem 1rem .25rem 1rem;
+                    
+                    border: 2px solid #f6450082;
+                    border-radius: .5rem;
+                    box-shadow: 0 .15em 2px rgba(0, 0, 0, 0.075);
+                    
+                                    
                     &:hover {
-                        /* hide underline-hover effect */
+                        /* Disable .underline-hover effect */
                         &::after {
                             display: none;
                         }
                     }
                     
                     // use ::before to avoid underline-hover collisions
-                    &::before {
-                        content: "[ $5.99 USD ]" / "credits are equal to $5.99 USD";
-                        position: absolute;
-                        width: fit-content;
-                        right: 1rem;
-                        top: 55%; // visual center
-                        transform: translateY(-50%);
-                        font-size: 1rem;
-                    }
+                    // &::before {
+                    //     content: "[ $5.99 USD ]" / "credits are equal to $5.99 USD";
+                    //     position: absolute;
+                    //     width: fit-content;
+                    //     right: 1rem;
+                    //     top: 55%; // visual center
+                    //     transform: translateY(-50%);
+                    //     font-size: 1rem;
+                    // }
                 }
-                
-                box-shadow: 0 .15em 2px rgba(0, 0, 0, 0.075);
             }
-        
-            grid-area: credits;
         }
 
-        // relationship between width, aspect-ratio, and child svg with 100% w/h.
-        // why does width sometimes not respect aspect ratio? maybe due to how svg scales weirdly.
+        // [?] Unknown: Relationship between width, aspect-ratio, and child svg with 100% w/h?
+        // Why does width sometimes not respect aspect ratio? Maybe due to how svg scales weirdly, or an improper viewport definition.
         .btn--options {
             width: 3rem;
             aspect-ratio: 1 / 1;
-
-            place-self: center;
 
             grid-area: btn--options;
             background: base_variables.$color-black;
             border-radius: 1rem;
             padding: 0.875rem;
 
-            /* Hide browser default tooltip when an svg element with <title> is hovered over */
-            /* Warning: disables event emission for the svg */
             svg {
-                pointer-events: none;
                 width: 100%;
                 height: 100%;
                 fill: base_variables.$color-white;
-                /* remove whitespace underneath replaced element */
+                
+                // [?] Unknown: Forgot if it's the <use> or <svg> that is the replaced element (probably <use>)
+                /* Remove whitespace underneath replaced element */
                 vertical-align: bottom;
 
                 path {
@@ -413,10 +405,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             &:hover {
                 background: rgb(from base_variables.$color-black r g b / 98%);
                 outline: 2px solid base_variables.$color-white;
-            }
-
-            @media screen and (max-width: base_variables.$breakpoint-xsm) {
-                justify-self: left;
             }
         }
     }
