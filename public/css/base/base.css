@@ -71,7 +71,7 @@ button {
 
 .sr-only {
   position: absolute;
-  left: -100vw;
+  left: -300vw;
 }
 
 .text-orange {
@@ -184,6 +184,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 .nav-list .nav-item {
   list-style: none;
 }
+.nav-list .toggle-sidebar-form-item {
+  display: none;
+}
 @media screen and (max-width: 66rem) {
   .nav-list .nav-item.search-item {
     width: 100%;
@@ -261,6 +264,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     row-gap: 0.5rem;
   }
   .nav-list .toggle-sidebar-form-item {
+    display: block;
     grid-area: toggle-sidebar-form-item;
   }
 }
@@ -270,6 +274,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
     padding: 1.25rem 1rem;
     gap: 1rem;
   }
+}
+.nav-list .toggle-sidebar-form-item {
+  justify-self: right;
 }
 @media screen and (min-width: calc(48rem + 1px)) {
   .nav-list #toggle-sidebar-form {
@@ -304,12 +311,6 @@ body:has(.nav-list #btn--toggle-sidebar:checked) > #sidebar {
 }
 .nav-list #toggle-sidebar-form #btn--toggle-sidebar:hover {
   cursor: pointer;
-}
-@media screen and (max-width: 32rem) {
-  .nav-list #toggle-sidebar-form #btn--toggle-sidebar {
-    grid-area: toggle-sidebar-form-item;
-    justify-self: right;
-  }
 }
 .nav-list .account-info-item {
   display: grid;

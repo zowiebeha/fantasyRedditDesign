@@ -84,6 +84,10 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         list-style: none;
     }
     
+    .toggle-sidebar-form-item {
+        display: none;
+    }
+    
     // TODO: review
     // .search-item <li>
     .nav-item.search-item {
@@ -210,6 +214,7 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         row-gap: .5rem;
     
         .toggle-sidebar-form-item {
+            display: block;
             grid-area: toggle-sidebar-form-item;
         }
     }
@@ -225,6 +230,10 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
         padding: 1.25rem 1rem; // reduced left/right padding
         
         gap: 1rem;
+    }
+    
+    .toggle-sidebar-form-item {
+        justify-self: right; // override default (in practice the default is `start` as explained somewhere in this file)
     }
     
     #toggle-sidebar-form {
@@ -278,15 +287,9 @@ body:has(.nav-list #btn--toggle-sidebar:checked) {
             &:hover {
                 cursor: pointer;
             }
-            
-            @media screen and (max-width: base_variables.$breakpoint-xxsm) {
-                grid-area: toggle-sidebar-form-item; // .nav-list's grid area at a $breakpoint-xsm screen size
-                justify-self: right; // override default (in practice the default is `start` as explained somewhere in this file)
-            }
         }
     }
 
-    // TODO: review
     .account-info-item {
         display: grid;
         grid: "username btn--options" auto "credits btn--options" auto / auto auto;

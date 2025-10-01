@@ -30,7 +30,8 @@
                 <li class="nav-item toggle-sidebar-form-item">
                     <form id="toggle-sidebar-form">
                         <label for="btn--toggle-sidebar" class="sr-only">Toggle side-bar</label>
-                        <input id="btn--toggle-sidebar" type="checkbox" aria-controls="sidebar" aria-expanded="false">
+                        <!-- Offers toggle behavior via CSS instead of JS. Uses aria + JS for a11y -->
+                        <input id="btn--toggle-sidebar" type="checkbox" aria-controls="sidebar" aria-expanded="false" role="button" aria-pressed="false">
                     </form>
                 </li>
                 
@@ -242,16 +243,18 @@
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum corporis vero cum, numquam necessitatibus obcaecati ratione earum eaque delectus, nobis maiores quisquam ea voluptas eum consectetur quidem perferendis nisi pariatur.
                         </p>
                         
-                        <!-- Todo: Improve aria descriptions of this content -->
                         <div class="card-engagement-buttons">
-                            <!-- For now these do nothing, we probably don't need to actually make these into buttons -->
+                            <!-- We probably don't need to actually make these into buttons -->
                             <div class="btn btn--like">
                                 <svg class="icon" data-width="18" data-height="20" viewBox="0 0 18 20">
                                     <title>Up arrow icon</title>
                                     <use href="./assets/svg/like-icon.svg#like-icon"></use>
                                 </svg>
                                 
-                                <p>3.9k</p>
+                                <p>
+                                    3.9k
+                                    <span class="sr-only">likes</span>
+                                </p>
                             </div>
                             
                             <div class="btn btn--dislike">
@@ -260,7 +263,10 @@
                                     <use href="./assets/svg/dislike-icon.svg#dislike-icon"></use>
                                 </svg>
                                 
-                                <p>231</p>
+                                <p>
+                                    231
+                                    <span class="sr-only">dislikes</span>
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -278,12 +284,18 @@
                             </svg>
                         </div>
                         
-                        <!-- Todo: improve ARIA description of content -->
-                        <p class="growth-amount">+35%</p>
+                        <p class="growth-amount">
+                            +35%
+                            <!-- Dynamically populate for a11y -->
+                            <span class="sr-only">
+                                in credit value compared to
+                                <time datetime="...">five minutes ago</time>
+                            </span>
+                        </p>
                     </div>
                     
                     <!-- Share our page on Reddit for +30 credits -->
-                    <!-- Todo: Dynamically generate based on thread -->
+                    <!-- Dynamically generate href based on thread -->
                     <a class="btn btn--share" href="https://www.reddit.com/submit?url=https%3A%2F%2Fexample.com&title=Check+this+out">                 
                         Share for +30 credits
                         <svg class="icon" viewBox="0 0 24 24">
