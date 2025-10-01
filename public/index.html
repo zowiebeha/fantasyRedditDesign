@@ -30,8 +30,13 @@
                 <li class="nav-item toggle-sidebar-form-item">
                     <form id="toggle-sidebar-form">
                         <label for="btn--toggle-sidebar" class="sr-only">Toggle side-bar</label>
-                        <!-- Offers toggle behavior via CSS instead of JS. Uses aria + JS for a11y -->
-                        <input id="btn--toggle-sidebar" type="checkbox" aria-controls="sidebar" aria-expanded="false" role="button" aria-pressed="false">
+                        <!--
+                            Offers toggle behavior via CSS instead of JS.
+                            Todo: make the aria HTML5 compliant and use best-practices
+                        -->
+                        <input id="btn--toggle-sidebar" type="checkbox"
+                               aria-controls="sidebar"
+                               aria-expanded="false">
                     </form>
                 </li>
                 
